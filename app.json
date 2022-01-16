@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "wear_scent",
+    "slug": "wear_scent",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "wear_scent"
+}
