@@ -28,6 +28,8 @@ export default function Research({ navigation,route }) {
 
   const [isdata, setIsData] = useState([]);
 
+  const [isStyle, setIsStyle] = useState()
+
   const getDate = (a, b) => {
     setIsData([a, b]);
   };
@@ -41,14 +43,16 @@ export default function Research({ navigation,route }) {
         Alert.alert("선택해주세요")
   
       }else{
-        navigation.navigate('Result',{isSex : isSex, isAge : isAge})
-        // getDate(isSex,isAge)
-        // navigation.navigate('Result',{isdata : isdata})
+        navigation.navigate('Result',{isSex : isSex, isAge : isAge , isStyle :isStyle})
+
       }
 
   }
 
   useEffect(() => {
+    // console.log("++" + route.params.isStyle)
+    // console.log(isStyle)
+    setIsStyle(route.params.isStyle)
     setIsAge(999);
     setIsSex("null");
     setIsData([])
@@ -64,7 +68,7 @@ export default function Research({ navigation,route }) {
 
   return (
     <SafeAreaView style={styles.Main_Container}>
-      {console.log(isdata.length)}
+   
       <StatusBar barStyle="light-content" backgroundColor={"black"} />
       <ScrollView style={styles.Scroll}>
         <View id="Part_Sex">
@@ -126,7 +130,7 @@ export default function Research({ navigation,route }) {
             </TouchableOpacity>
           </View>
         </View>
-        {console.log(isSex)}
+        {/* {console.log(isSex)} */}
 
         <View id="Part_Age">
           <View style={styles.Title_Age}>
@@ -195,7 +199,7 @@ export default function Research({ navigation,route }) {
             </TouchableOpacity>
           </View>
         </View>
-        {console.log(isAge)}
+        {/* {console.log(isAge)} */}
 
         <View>
           <TouchableOpacity
@@ -214,7 +218,7 @@ export default function Research({ navigation,route }) {
         <Text style={{ backgroundColor: "red", color: "white" }}>
           {`${isdata}`}
         </Text>
-        {console.log("isdata : " + isdata)}
+        {/* {console.log("isdata : " + isdata)} */}
       </ScrollView>
     </SafeAreaView>
   );

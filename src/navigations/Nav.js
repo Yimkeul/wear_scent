@@ -10,6 +10,7 @@ export default function Nav() {
       <Stack.Navigator
         screenOptions={{
           headerTitleAlign: "center",
+          
         }}
       >
         <Stack.Screen name="Home" component={Home} />

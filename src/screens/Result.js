@@ -3,6 +3,7 @@ import {View,Text} from 'react-native'
 
 export default function Result({navigation, route}){
 
+  
 
   const [prevdata ,setPrevdata ] =useState()
   
@@ -10,8 +11,8 @@ export default function Result({navigation, route}){
 
   useEffect(()=>{
     setReady(false)
-    const {isSex,isAge } =route.params
-    setPrevdata([isSex,isAge])
+    const {isSex,isAge,isStyle } =route.params
+    setPrevdata([isSex,isAge,isStyle])
   },[])
 
   useEffect(()=>{
@@ -29,6 +30,7 @@ export default function Result({navigation, route}){
         {prevdata[0]}
         </Text>     
        <Text>{prevdata[1]}</Text>
+       <Text>{prevdata[2]}</Text>
     </View>
   )
 }
