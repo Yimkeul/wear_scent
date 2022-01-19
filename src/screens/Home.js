@@ -62,21 +62,22 @@ export default function Home({ navigation, route }) {
       <View
         id="header"
         style={{
-          flexDirection: "row",
           height: Dimensions.get("window").height * 0.06,
           width:'100%',
           backgroundColor: "white",
+         
         }}
       >
       
 
-        <TouchableOpacity onPress={()=>setShowmodal(true)} style={{marginLeft:'80%'}}>
-          <View style={{flex:1,justifyContent:'center', alignItems:'center' , borderWidth : 1 , borderRadius : 15, marginTop:20}}>
-            <Text style={{paddingHorizontal : '5%' }}>
+          <View style={{borderWidth : 1, borderRadius:15, width:'30%' , marginLeft:'67%',marginTop : '2%'}}>
+        <TouchableOpacity onPress={()=>setShowmodal(true)} style={{width : '100%', height:'100%' , justifyContent:'center' , alignItems :'center'}}>
+            <Text style={{}}>
               FAQ
             </Text>
-          </View>
         </TouchableOpacity>  
+          </View>
+
       </View>
       {/* 모달창 */}
       <Modal animationType={"slide"} transparent={false} visible={showmodal}>
