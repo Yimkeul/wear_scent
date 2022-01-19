@@ -10,6 +10,7 @@ import {
   Dimensions,
   LogBox,
   Alert,
+  Image
 } from "react-native";
 
 export default function Research({ navigation,route }) {

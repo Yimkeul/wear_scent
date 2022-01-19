@@ -12,23 +12,14 @@ import {
   Alert,
   Modal,
   Button,
+  Image,
+  Platform,
 } from "react-native";
 import { WebView } from "react-native-webview";
+import DropShadow from "react-native-drop-shadow";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
-
-// ios: {
-//   fontSize: 17,
-//   fontWeight: '600',
-// },
-// android: {
-//   fontSize: 20,
-//   fontFamily: 'sans-serif-medium',
-//   fontWeight: 'normal',
-// },
-// default: {
-//   fontSize: 18,
-//   fontWeight: '500',
-// },
 export default function Home({ navigation, route }) {
   LogBox.ignoreAllLogs();
   const _url = "https://stoic-perlman-d070d2.netlify.app"; //작업중인 사이트
@@ -59,29 +50,53 @@ export default function Home({ navigation, route }) {
   return (
     <SafeAreaView style={styles.Main_Container}>
       <StatusBar barStyle="light-content" backgroundColor={"black"} />
-      <View
-        id="header"
-        style={{
-          height: Dimensions.get("window").height * 0.06,
-          width:'100%',
-          backgroundColor: "white",
-         
-        }}
-      >
-      
 
-          <View style={{borderWidth : 1, borderRadius:15, width:'30%' , marginLeft:'67%',marginTop : '2%'}}>
-        <TouchableOpacity onPress={()=>setShowmodal(true)} style={{width : '100%', height:'100%' , justifyContent:'center' , alignItems :'center'}}>
-            <Text style={{}}>
-              FAQ
-            </Text>
-        </TouchableOpacity>  
+      {/*헤더*/}
+      <View id="header" style={styles.header}>
+        <View id="Logo" style={styles.LogoBox}>
+          <Image source={require("../../assets/tt.png")} style={styles.Logo} />
+        </View>
+
+        <TouchableOpacity
+          onPress={() => {
+            setShowmodal(true);
+          }}
+          style={styles.FAQBox}
+        >
+          <View id="FAQ">
+            <Image
+              source={require("../../assets/question_mark.png")}
+              style={styles.FAQ}
+            />
           </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {}} style={styles.heartBox}>
+          <View id="heart">
+            <Image
+              source={require("../../assets/heart.png")}
+              style={styles.heart}
+            />
+          </View>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity onPress={() => {       webViewRef.current.goBack();
+            setGetstyle("undefined");}} style={styles.resetBox}>
+          <View id="reset">
+            <Image
+              source={require("../../assets/reset.png")}
+              style={styles.reset}
+            />
+          </View>
+        </TouchableOpacity>
+
 
       </View>
+
       {/* 모달창 */}
       <Modal animationType={"slide"} transparent={false} visible={showmodal}>
-        <View style={{ backgroundColor: "red", flex: 1 }}>
+        <View style={{ backgroundColor: "black", flex: 1 }}>
           <Text>modal</Text>
           <Button
             title="닫기"
@@ -89,54 +104,116 @@ export default function Home({ navigation, route }) {
               setShowmodal(false);
             }}
           />
+          <TouchableOpacity>
+            <Image source={require("../../assets/IC_24C.png")} />
+          </TouchableOpacity>
+          <Image
+            source={require("../../assets/Logo.png")}
+            style={{ height: "10%", resizeMode: "contain" }}
+          />
         </View>
       </Modal>
 
-      <View style={styles.WebView_Continer}>
-        <WebView
-          style={styles.web_}
-          source={{ uri: _url }}
-          ref={(ref) => (webViewRef.current = ref)}
-          bounces={false}
-          scrollEnabled={false}
-          onMessage={(event) => {
-            onMessage(event.nativeEvent.data);
-          }}
-        />
-      </View>
-
-      <View style={styles.Show_Style_Result_Container}>
-        {getstyle == "undefined" ? (
-          <Text>당신의 스타일은?</Text>
-        ) : (
-          <Text>{getstyle}</Text>
-        )}
-      </View>
-
-      <View style={styles.Action_Buttons_Container}>
-        <TouchableOpacity
-          style={styles.Btn_Touch}
-          onPress={() => {
-            webViewRef.current.goBack();
-            setGetstyle("undefined");
-          }}
-        >
-          <View style={styles.Btn}>
-            <Text>초기화</Text>
+      {/* 웹뷰 & 결과 OS 분리 --> 그림자*/}
+      {Platform.OS == "ios" ? (
+        <DropShadow style={styles.shadowProp}>
+          <View style={styles.WebView_Continer}>
+            <WebView
+              style={styles.web_}
+              source={{ uri: _url }}
+              ref={(ref) => (webViewRef.current = ref)}
+              bounces={false}
+              scrollEnabled={false}
+              onMessage={(event) => {
+                onMessage(event.nativeEvent.data);
+              }}
+            />
           </View>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.Btn_Touch}
-          onPress={() => {
-            navigation.navigate("Research", { isStyle: getstyle });
-          }}
-        >
-          <View style={styles.Btn}>
-            <Text>다음</Text>
+          {/* 스타일 결과창 */}
+          <View style={styles.Show_Style_Result_Container}>
+          {getstyle == "undefined" ? (
+              <Text style={styles.Show_Style_Result_Text}>
+                 Your Style is...
+              </Text>
+            ) : (
+              <View style = {{flexDirection:"row" }}>
+                <View style={{flex : 1 }}></View>
+                <View style={{flex: 1 ,  alignItems :'center' , justifyContent :'center' }}>
+
+                <Text style={styles.Show_Style_Result_Text}>{getstyle}</Text>
+                </View>
+
+                <View style={{flex : 1, alignItems :'flex-end' , justifyContent :'center' }}>
+
+                <TouchableOpacity style = {{flexDirection:"row" }} onPress={()=>{navigation.navigate("Research", { isStyle: getstyle })}}>
+                  <Text >click</Text>
+        
+                  <MaterialIcons name="navigate-next" size={24} color="black" />
+                </TouchableOpacity>
+                </View>
+              </View>
+
+            )}
           </View>
-        </TouchableOpacity>
-      </View>
+          
+        </DropShadow>
+      ) : (
+        <>
+          <View
+            style={{
+              ...styles.WebView_Continer,
+              elevation: 6,
+              shadowColor: "#141414",
+            }}
+          >
+            <WebView
+              style={styles.web_}
+              source={{ uri: _url }}
+              ref={(ref) => (webViewRef.current = ref)}
+              bounces={false}
+              scrollEnabled={false}
+              onMessage={(event) => {
+                onMessage(event.nativeEvent.data);
+              }}
+            />
+          </View>
+          {/* 스타일 결과창 */}
+          <View
+            style={{
+              ...styles.Show_Style_Result_Container,
+              elevation: 6,
+              shadowColor: "#141414",
+            }}
+          >
+            {getstyle == "undefined" ? (
+              <Text style={styles.Show_Style_Result_Text}>
+                Your Style is...
+              </Text>
+            ) : (
+              <View style = {{flexDirection:"row" }}>
+                <View style={{flex : 1 }}></View>
+                <View style={{flex: 1 ,  alignItems :'center' , justifyContent :'center' }}>
+
+                <Text style={styles.Show_Style_Result_Text}>{getstyle}</Text>
+                </View>
+
+                <View style={{flex : 1, alignItems :'flex-end' , justifyContent :'center'}}>
+
+                <TouchableOpacity style = {{flexDirection:"row" }} onPress={()=>{navigation.navigate("Research", { isStyle: getstyle })}}>
+                  <Text >click</Text>
+        
+                  <MaterialIcons name="navigate-next" size={24} color="black" />
+                </TouchableOpacity>
+                </View>
+              </View>
+
+            )}
+          </View>
+        </>
+      )}
+
+
     </SafeAreaView>
   );
 }
@@ -144,49 +221,116 @@ export default function Home({ navigation, route }) {
 const styles = StyleSheet.create({
   Main_Container: {
     flex: 1,
-   
-   
   },
-  Scroll: {
-    flex: 1,
-  },
+
   web_: {
     flex: 1,
   },
   WebView_Continer: {
+    overflow: "hidden",
     marginHorizontal: 10,
-    minHeight: Dimensions.get("window").height * 0.55,
-    borderWidth: 5,
+    height: Dimensions.get("screen").height * 0.68,
     borderRadius: 10,
     marginTop: 10,
-    borderColor: "rgb(130,130,130)",
   },
+
   Show_Style_Result_Container: {
     marginHorizontal: 10,
-    marginVertical: 20,
-    borderWidth: 1,
+    marginTop: 10,
+    borderRadius: 15,
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     height: Dimensions.get("window").height * 0.1,
   },
+
+  Show_Style_Result_Text: {
+    fontSize: 20,
+  },
+
   Action_Buttons_Container: {
     marginHorizontal: 10,
     flexDirection: "row",
-    height: Dimensions.get("window").height * 0.2,
-    justifyContent: "space-around",
+    height: Dimensions.get("window").height * 0.1,
+    justifyContent: "space-evenly",
     alignItems: "center",
+    backgroundColor:'aqua'
   },
-  Btn: {
-    width: Dimensions.get("window").width * 0.4,
-    height: Dimensions.get("window").width * 0.4,
-    borderRadius: Dimensions.get("window").width * 0.2,
+
+  Btn2: {
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
   },
-  Btn_Touch: {
-    width: Dimensions.get("window").width * 0.4,
-    height: Dimensions.get("window").width * 0.4,
-    borderRadius: Dimensions.get("window").width * 0.2,
+  Btn_Touch1: {
+    width : '45%',
+    flexDirection: "row",
+    borderWidth: 2,
+    borderColor: "#f21a1d",
+    borderRadius: 50,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    justifyContent: "space-around",
+    alignItems: "center",
+    flexDirection: "row",
+
+  },
+
+  // 헤드 스타일
+  header: {
+    height: Dimensions.get("window").height * 0.1,
+    backgroundColor: "white",
+    flexDirection: "row",
+  },
+
+  LogoBox: {
+    flex: 5,
+
+    marginLeft: 10,
+  },
+  FAQBox: {
+    flex: 1,
+  },
+  heartBox: {
+    flex: 1,
+
+  },
+  resetBox: {
+    flex: 1,
+    marginRight: 10,
+  },
+
+  Logo: {
+    height: "100%",
+    width: "80%",
+    resizeMode: "stretch",
+  },
+
+  FAQ: {
+    height: "100%",
+    width: "50%",
+    marginLeft: "25%",
+    resizeMode: "contain",
+  },
+  heart: {
+    height: "100%",
+    width: "50%",
+    marginLeft: "25%",
+    resizeMode: "contain",
+  },
+  reset: {
+    height: "100%",
+    width: "50%",
+    marginLeft: "25%",
+    resizeMode: "contain",
+  },
+  //
+
+  shadowProp: {
+    shadowColor: "#171717",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
   },
 });
