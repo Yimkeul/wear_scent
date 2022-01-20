@@ -17,7 +17,6 @@ import {
 } from "react-native";
 import { WebView } from "react-native-webview";
 import DropShadow from "react-native-drop-shadow";
-import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Home({ navigation, route }) {
@@ -26,19 +25,21 @@ export default function Home({ navigation, route }) {
   const webViewRef = useRef(); //필요
   const [getstyle, setGetstyle] = useState("undefined");
   onMessage = (data) => {
-    console.log("이거 도는중임 ");
+
     if (data == getstyle) {
-      console.log("같군");
+  
       setGetstyle(data);
-      console.log(data);
+    
     } else {
       setGetstyle(data);
-      console.log(data);
+
     }
   };
 
   const [showmodal, setShowmodal] = useState(false);
-
+  const close=()=>{
+    setShowmodal(false)
+  }
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       webViewRef.current.goBack();
@@ -90,13 +91,12 @@ export default function Home({ navigation, route }) {
             />
           </View>
         </TouchableOpacity>
-
-
       </View>
+       {/* 헤더 끝 */}
 
       {/* 모달창 */}
-      <Modal animationType={"slide"} transparent={false} visible={showmodal}>
-        <View style={{ backgroundColor: "black", flex: 1 }}>
+      <Modal animationType={"slide"} transparent={false} visible={showmodal} onRequestClose={close}>
+        <View style={{ }}>
           <Text>modal</Text>
           <Button
             title="닫기"
@@ -132,7 +132,7 @@ export default function Home({ navigation, route }) {
 
           {/* 스타일 결과창 */}
           <View style={styles.Show_Style_Result_Container}>
-          {getstyle == "undefined" ? (
+          {!getstyle == "undefined" ? (
               <Text style={styles.Show_Style_Result_Text}>
                  Your Style is...
               </Text>
@@ -186,7 +186,7 @@ export default function Home({ navigation, route }) {
               shadowColor: "#141414",
             }}
           >
-            {getstyle == "undefined" ? (
+            {!getstyle == "undefined" ? ( //임시로
               <Text style={styles.Show_Style_Result_Text}>
                 Your Style is...
               </Text>
@@ -245,7 +245,8 @@ const styles = StyleSheet.create({
   },
 
   Show_Style_Result_Text: {
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: "700",
   },
 
   Action_Buttons_Container: {
