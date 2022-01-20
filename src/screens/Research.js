@@ -58,6 +58,7 @@ export default function Research({ navigation, route }) {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       setIsStyle(route.params.isStyle);
+   
       setIsAge(999);
       setIsSex("null");
       setCSM(false);
@@ -83,6 +84,7 @@ export default function Research({ navigation, route }) {
     setA30(false);
     setA40(false);
   }, []);
+
   LogBox.ignoreAllLogs();
 
   return (
@@ -448,11 +450,21 @@ export default function Research({ navigation, route }) {
           <TouchableOpacity
             style={styles.show_result_container}
             onPress={() => {
-              setIsAge(999);
-              setIsSex("null");
+              // setIsAge(999);
+              // setIsSex("null");
+              // setTimeout(() => {
+              //   check_arr();
+              // }, 1);
+              setIsmodalshow(false);
               setTimeout(() => {
-                check_arr();
+                navigation.navigate("Result", {
+                  isSex: isSex,
+                  isAge: isAge,
+                  isStyle: isStyle,
+                });
               }, 1);
+  
+
             }}
           >
             <Text style={{ fontSize: 18, fontWeight: "700" }}>결과보기</Text>
