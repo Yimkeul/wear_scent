@@ -55,7 +55,7 @@ export default function Home({ navigation, route }) {
       {/*헤더*/}
       <View id="header" style={styles.header}>
         <View id="Logo" style={styles.LogoBox}>
-          <Image source={require("../../assets/tt.png")} style={styles.Logo} />
+          <Image source={require("../../assets/logo_letter.png")} style={styles.Logo} />
         </View>
 
         <TouchableOpacity
