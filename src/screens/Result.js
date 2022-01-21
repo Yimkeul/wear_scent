@@ -38,7 +38,7 @@ export default function Result({ navigation, route }) {
     <View></View>
   ) : (
     <SafeAreaView>
-      <StatusBar barStyle="light-content"/>
+      <StatusBar barStyle="default"/>
       {/*헤더*/}
       <View id="header" style={styles.header}>
         <View id="Logo" style={styles.LogoBox}>

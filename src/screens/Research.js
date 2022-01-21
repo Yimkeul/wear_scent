@@ -43,17 +43,7 @@ export default function Research({ navigation, route }) {
       setIsmodalshow(false);
     }
   }, [isAge, isSex]);
-  const check_arr = () => {
-    if (isSex == "null" || isAge == 999) {
-      Alert.alert("선택해주세요");
-    } else {
-      navigation.navigate("Result", {
-        isSex: isSex,
-        isAge: isAge,
-        isStyle: isStyle,
-      });
-    }
-  };
+
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -89,7 +79,7 @@ export default function Research({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.Main_Container}>
-      <StatusBar barStyle="light-content" backgroundColor={"black"} />
+      <StatusBar barStyle="default" />
 
       <View id="Part_Sex">
         <View style={styles.Title_Sex}>
@@ -450,11 +440,6 @@ export default function Research({ navigation, route }) {
           <TouchableOpacity
             style={styles.show_result_container}
             onPress={() => {
-              // setIsAge(999);
-              // setIsSex("null");
-              // setTimeout(() => {
-              //   check_arr();
-              // }, 1);
               setIsmodalshow(false);
               setTimeout(() => {
                 navigation.navigate("Result", {

@@ -50,7 +50,7 @@ export default function Home({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.Main_Container}>
-      <StatusBar barStyle="light-content" backgroundColor={"black"} />
+      <StatusBar barStyle="default"/>
 
       {/*헤더*/}
       <View id="header" style={styles.header}>
@@ -82,7 +82,8 @@ export default function Home({ navigation, route }) {
         </TouchableOpacity>
 
 
-        <TouchableOpacity onPress={() => {       webViewRef.current.goBack();
+        <TouchableOpacity onPress={() => {       
+          // webViewRef.current.goBack();
             setGetstyle("undefined");}} style={styles.resetBox}>
           <View id="reset">
             <Image
@@ -115,7 +116,7 @@ export default function Home({ navigation, route }) {
       </Modal>
 
       {/* 웹뷰 & 결과 OS 분리 --> 그림자*/}
-      {Platform.OS == "ios" ? (
+       {Platform.OS == "ios" ? (
         <DropShadow style={styles.shadowProp}>
           <View style={styles.WebView_Continer}>
             <WebView
@@ -128,10 +129,10 @@ export default function Home({ navigation, route }) {
                 onMessage(event.nativeEvent.data);
               }}
             />
-          </View>
+          </View> 
 
           {/* 스타일 결과창 */}
-          <View style={styles.Show_Style_Result_Container}>
+           <View style={styles.Show_Style_Result_Container}>
           {!getstyle == "undefined" ? (
               <Text style={styles.Show_Style_Result_Text}>
                  Your Style is...
@@ -157,10 +158,10 @@ export default function Home({ navigation, route }) {
             )}
           </View>
           
-        </DropShadow>
-      ) : (
+        </DropShadow> 
+       ) : ( 
         <>
-          <View
+           <View
             style={{
               ...styles.WebView_Continer,
               elevation: 6,
@@ -177,9 +178,9 @@ export default function Home({ navigation, route }) {
                 onMessage(event.nativeEvent.data);
               }}
             />
-          </View>
+          </View> 
           {/* 스타일 결과창 */}
-          <View
+           <View
             style={{
               ...styles.Show_Style_Result_Container,
               elevation: 6,
@@ -209,9 +210,9 @@ export default function Home({ navigation, route }) {
               </View>
 
             )}
-          </View>
+          </View> 
         </>
-      )}
+       )} 
 
 
     </SafeAreaView>
@@ -286,7 +287,7 @@ const styles = StyleSheet.create({
   },
 
   LogoBox: {
-    flex: 5,
+    flex: 6,
 
     marginLeft: 10,
   },
