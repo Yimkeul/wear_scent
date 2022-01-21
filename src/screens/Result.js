@@ -5,15 +5,17 @@ import {
   StatusBar,
   SafeAreaView,
   TouchableOpacity,
-  ScrollView,
   StyleSheet,
   Dimensions,
   LogBox,
   Alert,
-  Image,
+  ImageBackground,
   Modal,
   Button,
+  Platform,
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import DropShadow from "react-native-drop-shadow";
 
 export default function Result({ navigation, route }) {
   LogBox.ignoreAllLogs();
@@ -34,120 +36,105 @@ export default function Result({ navigation, route }) {
     setReady(true);
   });
 
+  // {console.log("--------")}
+  // {console.log(prevdata)}
   return !ready ? (
     <View></View>
   ) : (
-    <SafeAreaView>
-      <StatusBar barStyle="default"/>
-      {/*헤더*/}
-      <View id="header" style={styles.header}>
-        <View id="Logo" style={styles.LogoBox}>
-          <Image source={require("../../assets/tt.png")} style={styles.Logo} />
-        </View>
+    <View style={styles.container}>
+      <StatusBar hidden />
 
-     
-
-        <TouchableOpacity
-          onPress={() => {
-            setShowmodal(true);
+      <View style={styles.img_box}>
+        <ImageBackground
+          source={require("../../assets/intro.png")}
+          style={{ resizeMode: "cover", flex: 1 }}
+          imageStyle={{
+            borderBottomRightRadius: 70,
+            borderBottomLeftRadius: 70,
           }}
-          style={styles.FAQBox}
-        >
-          <View id="FAQ">
-            <Image
-              source={require("../../assets/question_mark.png")}
-              style={styles.FAQ}
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => {}} style={styles.heartBox}>
-          <View id="heart">
-            <Image
-              source={require("../../assets/heart.png")}
-              style={styles.heart}
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.homeBox}
-          onPress={()=>{navigation.navigate('Home')}}
-        >
-                  <View id="home">
-            <Image
-              source={require("../../assets/house.png")}
-              style={styles.home}
-            />
-          </View>
-
-        </TouchableOpacity>
+        />
       </View>
 
-      {/* 헤더 끝 */}
+      <View style={styles.Text_box}>
+        <View
+          style={{
+            marginHorizontal: 10,
+            flex: 1,
+            flexDirection: "row",
+          }}
+        >
+          <View style={{ flex: 9, justifyContent: "center" }}>
+            <Text style={{ fontSize: 30 }} numberOfLines={1}>
+              Title
+            </Text>
+          </View>
 
-     
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 1,
+            }}
+          >
+            <TouchableOpacity onPress={() => {}}>
+              <AntDesign name="hearto" size={25} color="red" />
+            </TouchableOpacity>
+          </View>
+        </View>
 
-      <Text>
-        {console.log("--------")}
-        {console.log(prevdata)}
+        <View style={{ marginHorizontal: 10, flex: 2 }}>
+          <Text style={{ color: "pink" }} numberOfLines={9}>
+            This space is explanation.
+          </Text>
+        </View>
+      </View>
 
-        {prevdata[0]}
-      </Text>
-      <Text>{prevdata[1]}</Text>
-      <Text>{prevdata[2]}</Text>
-    </SafeAreaView>
+      <TouchableOpacity onPress={() => {}} style={styles.Button_box}>
+        <Text style={styles.Button_box_text}>바로가기</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  // 헤드 스타일
-  header: {
-    marginHorizontal: -10,
-    height: Dimensions.get("window").height * 0.1,
+  container: {
+    flex: 1,
+  },
+  img_box: {
+    height: Dimensions.get("window").height * 0.58,
+    backgroundColor: "gray",
+    borderBottomRightRadius: 70,
+    borderBottomLeftRadius: 70,
+  },
+  Text_box: {
+    marginHorizontal: 10,
+    marginTop: 10,
+    height: Dimensions.get("window").height * 0.23,
+    backgroundColor: "gray",
+    borderWidth: 3,
+    borderRadius: 20,
+  },
+  Button_box: {
+    marginHorizontal: 10,
+    marginTop: 10,
+    borderWidth: 3,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "white",
-    flexDirection: "row",
+    paddingVertical: "5%",
+    marginHorizontal: "2%",
+  },
+  Button_box_text: {
+    fontSize: 18,
+    fontWeight: "700",
   },
 
-  LogoBox: {
-    flex: 5,
-
-    marginLeft: 10,
-  },
-  FAQBox: {
-    flex: 1,
-  },
-  heartBox: {
-    flex: 1,
-
-  },
-  homeBox: {
-    flex: 1,
-    marginRight: 10,
-  },
-
-  Logo: {
-    height: "100%",
-    width: "80%",
-    resizeMode: "stretch",
-  },
-
-  FAQ: {
-    height: "100%",
-    width: "50%",
-    marginLeft: "25%",
-    resizeMode: "contain",
-  },
-  heart: {
-    height: "100%",
-    width: "50%",
-    marginLeft: "25%",
-    resizeMode: "contain",
-  },
-  home: {
-    height: "100%",
-    width: "50%",
-    marginLeft: "25%",
-    resizeMode: "contain",
+  shadowProp: {
+    shadowColor: "#171717",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
   },
 });

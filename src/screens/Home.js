@@ -72,7 +72,7 @@ export default function Home({ navigation, route }) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {}} style={styles.heartBox}>
+        <TouchableOpacity onPress={() => {navigation.navigate("Like")}} style={styles.heartBox}>
           <View id="heart">
             <Image
               source={require("../../assets/heart.png")}
