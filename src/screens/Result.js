@@ -12,145 +12,222 @@ import {
   ImageBackground,
   Modal,
   Button,
-  Platform
+  Platform,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import DropShadow from "react-native-drop-shadow";
+import { firebase_db } from "../firebaseConfig";
+import * as Application from "expo-application";
 
 export default function Result({ navigation, route }) {
   LogBox.ignoreAllLogs();
 
-  const [prevdata, setPrevdata] = useState();
+  const [prevdata, setPrevdata] = useState(); //route로 받아온 데이터 저장용
 
-  const [ready, setReady] = useState(false);
+  const [alldata, setAlldata] = useState({}); //firebase에서 데이터 받아옴
 
-  const [showmodal, setShowmodal] = useState(false);
+  const [fi, setFi] = useState([
+    {
+      idx: 999999,
+      title: "",
+      explain: "",
+      sex: "",
+      age: "",
+      style: "",
+    },
+  ]); //테스트중 (filter)
+
+  const [rr, setRR] = useState(false);
+  const [ran, setRan] = useState();
 
   useEffect(() => {
-    // setReady(false);
     const { isSex, isAge, isStyle } = route.params;
     setPrevdata([isSex, isAge, isStyle]);
+    console.log("---useEffect---");
+    console.log(isSex + " " + isAge + " " + isStyle);
+
+    firebase_db
+      .ref("/perfume")
+      .once("value")
+      .then((snapshot) => {
+        // console.log("파이어베이스에서 데이터 가져왔습니다!!");
+        let dpp = snapshot.val();
+        setAlldata(dpp);
+        // setRR(true)
+        setFi(
+          dpp.filter((d) => {
+            return d.sex == isSex && d.age == isAge;
+          })
+        );
+        let min = 0;
+        let max = Object.keys(fi).length;
+        let rn = Math.floor(Math.random() * (max - min)) + min;
+        setRan(rn);
+      });
   }, []);
 
-  // useEffect(() => {
-  //   setReady(true);
-  // },[]);
+  // useEffect(()=>{
+  //   if(rr == true){
+  //     setFi(
+  //       alldata.filter((d)=>{
+  //         return((d.sex == prevdata[0] && d.age == prevdata[1]))
+  //       })
+  //     )
+  //   let min =0
+  //   let max = Object.keys(fi).length
+  //   let rn = Math.floor(Math.random()*(max-min)) + min
+  //   setRan(rn)
+  //   }
 
-  // {console.log("--------")}
-  // {console.log(prevdata)}
+  // },[rr])
+
+  //좋아요 함수
+  const LIKE = async () => {
+    let userUniqueId;
+    if (Platform.OS == "ios") {
+      let iosID = await Application.getIosIdForVendorAsync();
+      userUniqueId = iosID;
+    } else {
+      userUniqueId = await Application.androidId;
+    }
+
+    console.log(userUniqueId);
+    firebase_db
+      .ref("/like/" + userUniqueId + "/" + fi[ran].idx)
+      .set(fi[ran], function (error) {
+        console.log(fi[ran]);
+        Alert.alert("저장!");
+      });
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar hidden />
-      
-   
-
       {Platform.OS == "ios" ? (
-       <DropShadow style={styles.shadowProp}>
-               <View style={styles.img_box}>
-        <ImageBackground
-          source={require("../../assets/intro.png")}
-          style={{ resizeMode: "cover", flex: 1 }}
-          imageStyle={{
-            borderBottomRightRadius: 70,
-            borderBottomLeftRadius: 70,
-          }}
-        />
-      </View>
- <View style={styles.Text_box}>
-        <View
-          style={{
-            marginHorizontal: 10,
-            flex: 1,
-            flexDirection: "row",
-          }}
-        >
-          <View style={{ flex: 9, justifyContent: "center" }}>
-            <Text style={{ fontSize: 30 }} numberOfLines={1}>
-              Title
-            </Text>
+        <DropShadow style={styles.shadowProp}>
+          <View style={styles.img_box}>
+            <ImageBackground
+              source={require("../../assets/intro.png")}
+              style={{ resizeMode: "cover", flex: 1 }}
+              imageStyle={{
+                borderBottomRightRadius: 70,
+                borderBottomLeftRadius: 70,
+              }}
+            />
+          </View>
+          <View style={styles.Text_box}>
+            <View
+              style={{
+                marginHorizontal: 10,
+                flex: 1,
+                flexDirection: "row",
+              }}
+            >
+              <View style={{ flex: 9, justifyContent: "center" }}>
+                <Text style={{ fontSize: 30 }} numberOfLines={1}>
+                  Title
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flex: 1,
+                }}
+              >
+                <TouchableOpacity onPress={() => {}}>
+                  <AntDesign name="hearto" size={25} color="red" />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={{ marginHorizontal: 10, flex: 2 }}>
+              <Text style={{ color: "black" }} numberOfLines={3}>
+                This space is explanation.{`\n`}
+                {prevdata}
+              </Text>
+            </View>
           </View>
 
+          <TouchableOpacity onPress={() => {}} style={styles.Button_box}>
+            <Text style={styles.Button_box_text}>바로가기</Text>
+          </TouchableOpacity>
+        </DropShadow>
+      ) : (
+        <>
+          <View style={styles.img_box}>
+            <ImageBackground
+              source={require("../../assets/intro.png")}
+              style={{ resizeMode: "cover", flex: 1 }}
+              imageStyle={{
+                borderBottomRightRadius: 70,
+                borderBottomLeftRadius: 70,
+              }}
+            />
+          </View>
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
+              ...styles.Text_box,
+              elevation: 10,
+              shadowColor: "#141414",
             }}
           >
-            <TouchableOpacity onPress={() => {}}>
-              <AntDesign name="hearto" size={25} color="red" />
-            </TouchableOpacity>
-          </View>
-        </View>
+            <View
+              style={{
+                marginHorizontal: 10,
+                flex: 1,
+                flexDirection: "row",
+              }}
+            >
+              <View style={{ flex: 9, justifyContent: "center" }}>
+                {fi[ran] !== undefined ? (
+                  <Text style={{ fontSize: 30 }} numberOfLines={1}>
+                    {fi[ran].title}
+                  </Text>
+                ) : undefined}
+              </View>
 
-        <View style={{ marginHorizontal: 10, flex: 2 }}>
-          <Text style={{color : 'black'}} numberOfLines={3}>
-            This space is explanation.{`\n`}
-            {prevdata}
-          </Text>
-        </View>
-      </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flex: 1,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    LIKE();
+                  }}
+                >
+                  <AntDesign name="hearto" size={25} color="red" />
+                </TouchableOpacity>
+              </View>
+            </View>
 
-      <TouchableOpacity onPress={() => {}} style={styles.Button_box}>
-        <Text style={styles.Button_box_text}>바로가기</Text>
-      </TouchableOpacity>
-
-      </DropShadow>) : (<>
-            <View style={styles.img_box}>
-        <ImageBackground
-          source={require("../../assets/intro.png")}
-          style={{ resizeMode: "cover", flex: 1 }}
-          imageStyle={{
-            borderBottomRightRadius: 70,
-            borderBottomLeftRadius: 70,
-          }}
-        />
-      </View>
-        <View style={{...styles.Text_box,elevation: 10,
-                  shadowColor: "#141414"}}>
-        <View
-          style={{
-            marginHorizontal: 10,
-            flex: 1,
-            flexDirection: "row",
-          }}
-        >
-          <View style={{ flex: 9, justifyContent: "center" }}>
-            <Text style={{ fontSize: 30 }} numberOfLines={1}>
-              Title
-            </Text>
+            <View style={{ marginHorizontal: 10, flex: 2 }}>
+              {fi[ran] !== undefined ? (
+                <Text style={{ color: "black" }} numberOfLines={3}>
+                  {fi[ran].explain}
+                </Text>
+              ) : undefined}
+            </View>
           </View>
 
-          <View
+          <TouchableOpacity
+            onPress={() => {}}
             style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
+              ...styles.Button_box,
+              elevation: 10,
+              shadowColor: "#141414",
             }}
           >
-            <TouchableOpacity onPress={() => {}}>
-              <AntDesign name="hearto" size={25} color="red" />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={{ marginHorizontal: 10, flex: 2 }}>
-          <Text style={{color : 'black'}}numberOfLines={9}>
-            This space is explanation.{`\n`}
-            {prevdata}
-          </Text>
-        </View>
-      </View>
-
-      <TouchableOpacity onPress={() => {}} style={{...styles.Button_box,elevation: 10,
-                  shadowColor: "#141414"}}>
-        <Text style={styles.Button_box_text}>바로가기</Text>
-      </TouchableOpacity>
-      </>)}
-        
-     
+            <Text style={styles.Button_box_text}>바로가기</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 }

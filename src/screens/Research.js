@@ -14,19 +14,21 @@ import {
   Platform
 } from "react-native";
 import DropShadow from "react-native-drop-shadow";
+import {firebase_db} from '../firebaseConfig'
+import * as Application from 'expo-application'
 
 export default function Research({ navigation, route }) {
   const [isClick_sex_man, setCSM] = useState();
   const [isClick_sex_woman, setCSW] = useState();
 
-  const [isSex, setIsSex] = useState();
+  const [isSex, setIsSex] = useState("null");
 
   const [isclick_age_10, setA10] = useState();
   const [isclick_age_20, setA20] = useState();
   const [isclick_age_30, setA30] = useState();
   const [isclick_age_40, setA40] = useState();
 
-  const [isAge, setIsAge] = useState();
+  const [isAge, setIsAge] = useState(999);
 
   const [isStyle, setIsStyle] = useState();
 
@@ -62,6 +64,9 @@ export default function Research({ navigation, route }) {
     return unsubscribe;
   }, [navigation]);
 
+
+  const [alldata, setAlldata] = useState({}) //firebase에서 데이터 받아옴
+
   useEffect(() => {
     setIsStyle(route.params.isStyle);
     setIsAge(999);
@@ -73,7 +78,13 @@ export default function Research({ navigation, route }) {
     setA20(false);
     setA30(false);
     setA40(false);
+
   }, []);
+
+
+
+
+  
 
   LogBox.ignoreAllLogs();
 
@@ -441,11 +452,13 @@ export default function Research({ navigation, route }) {
             style={styles.show_result_container}
             onPress={() => {
               setIsmodalshow(false);
+           
               setTimeout(() => {
                 navigation.navigate("Result", {
                   isSex: isSex,
                   isAge: isAge,
                   isStyle: isStyle,
+             
                 });
               }, 1);
   
@@ -453,6 +466,7 @@ export default function Research({ navigation, route }) {
             }}
           >
             <Text style={{ fontSize: 18, fontWeight: "700" }}>결과보기</Text>
+            
           </TouchableOpacity>
         </View>
       </Modal>
