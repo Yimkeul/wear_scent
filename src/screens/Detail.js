@@ -19,88 +19,25 @@ import DropShadow from "react-native-drop-shadow";
 import { firebase_db } from "../firebaseConfig";
 import * as Application from "expo-application";
 
-export default function Result({ navigation, route }) {
+export default function Detail({ navigation, route }) {
   LogBox.ignoreAllLogs();
 
   const [prevdata, setPrevdata] = useState(); //route로 받아온 데이터 저장용
 
-  const [alldata, setAlldata] = useState({}); //firebase에서 데이터 받아옴
-
-  const [fi, setFi] = useState([
-    {
-      idx: 999999,
-      title: "",
-      explain: "",
-      sex: "",
-      age: "",
-      style: "",
-    },
-  ]); //테스트중 (filter)
-
-  const [rr, setRR] = useState(false);
-  const [ran, setRan] = useState();
+ 
 
   useEffect(() => {
-    const { isSex, isAge, isStyle } = route.params;
-    setPrevdata([isSex, isAge, isStyle]);
-    console.log("---useEffect---");
-    console.log(isSex + " " + isAge + " " + isStyle);
-
+    const { idx } = route.params;
     firebase_db
-      .ref("/perfume")
+      .ref("/perfume/" + idx)
       .once("value")
       .then((snapshot) => {
-        // console.log("파이어베이스에서 데이터 가져왔습니다!!");
-        let dpp = snapshot.val();
-        setAlldata(dpp);
-        // setRR(true)
-        setFi(
-          dpp.filter((d) => {
-            return d.sex == isSex && d.age == isAge;
-          })
-        );
-        let min = 0;
-        let max = Object.keys(fi).length;
-        let rn = Math.floor(Math.random() * (max - min)) + min;
-        setRan(rn);
+        let data = snapshot.val();
+        setPrevdata(data);
       });
   }, []);
 
-  // useEffect(()=>{
-  //   if(rr == true){
-  //     setFi(
-  //       alldata.filter((d)=>{
-  //         return((d.sex == prevdata[0] && d.age == prevdata[1]))
-  //       })
-  //     )
-  //   let min =0
-  //   let max = Object.keys(fi).length
-  //   let rn = Math.floor(Math.random()*(max-min)) + min
-  //   setRan(rn)
-  //   }
-
-  // },[rr])
-
-  //좋아요 함수
-  const LIKE = async () => {
-    let userUniqueId;
-    if (Platform.OS == "ios") {
-      let iosID = await Application.getIosIdForVendorAsync();
-      userUniqueId = iosID;
-    } else {
-      userUniqueId = await Application.androidId;
-    }
-
-    console.log(userUniqueId);
-    // let date = new Date().toString()
-    
-    firebase_db
-      .ref("/like/" + userUniqueId + "/" + fi[ran].idx )
-      .set(fi[ran], function (error) {
-        console.log(fi[ran]);
-        Alert.alert("저장!");
-      });
-  };
+ 
 
   return (
     <View style={styles.container}>
@@ -183,15 +120,15 @@ export default function Result({ navigation, route }) {
                 flexDirection: "row",
               }}
             >
-              <View style={{ flex: 9, justifyContent: "center" }}>
-                {fi[ran] !== undefined ? (
+              <View style={{ flex: 1, justifyContent: "center" }}>
+                {prevdata !== undefined ? (
                   <Text style={{ fontSize: 30 }} numberOfLines={1}>
-                    {fi[ran].title}
+                    {prevdata.title}
                   </Text>
                 ) : undefined}
               </View>
 
-              <View
+              {/* <View
                 style={{
                   flexDirection: "row",
                   justifyContent: "center",
@@ -206,13 +143,13 @@ export default function Result({ navigation, route }) {
                 >
                   <AntDesign name="hearto" size={25} color="red" />
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
 
             <View style={{ marginHorizontal: 10, flex: 2 }}>
-              {fi[ran] !== undefined ? (
+              {prevdata !== undefined ? (
                 <Text style={{ color: "black" }} numberOfLines={3}>
-                  {fi[ran].explain}
+                  {prevdata.explain}
                 </Text>
               ) : undefined}
             </View>

@@ -1,4 +1,4 @@
-import { Home, Like, Research, Result } from "../screens/index";
+import { Home, Like, Research, Result,Detail } from "../screens/index";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
@@ -66,6 +66,59 @@ export default function Nav() {
             ),
           })}
         />
+
+
+<Stack.Screen
+          name="Detail"
+          component={Detail}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerTransparent: true,
+            headerTitle: "",
+            statusbar: { visiable: false },
+            headerRight: () => (
+              <View style={{ flexDirection: "row" }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack();
+                  }}
+                  style={styles.box}
+                >
+                  <Image
+                    source={require("../../assets/heart_c.png")}
+                    style={styles.logo}
+                  />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Home");
+                  }}
+                  style={styles.box1}
+                >
+                  <Image
+                    source={require("../../assets/house.png")}
+                    style={styles.logo1}
+                  />
+                </TouchableOpacity>
+              </View>
+            ),
+          })}
+        />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <Stack.Screen name="Like" component={Like} />
       </Stack.Navigator>
     </NavigationContainer>
