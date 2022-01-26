@@ -18,7 +18,7 @@ import { AntDesign } from "@expo/vector-icons";
 import DropShadow from "react-native-drop-shadow";
 import { firebase_db } from "../firebaseConfig";
 import * as Application from "expo-application";
-
+//tt
 export default function Result({ navigation, route }) {
   LogBox.ignoreAllLogs();
 
@@ -92,7 +92,7 @@ export default function Result({ navigation, route }) {
     }
 
     console.log(userUniqueId);
-    // let date = new Date().toString()
+
     
     firebase_db
       .ref("/like/" + userUniqueId + "/" + fi[ran].idx )
