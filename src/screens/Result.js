@@ -126,9 +126,11 @@ export default function Result({ navigation, route }) {
               }}
             >
               <View style={{ flex: 9, justifyContent: "center" }}>
-                <Text style={{ fontSize: 30 }} numberOfLines={1}>
-                  Title
-                </Text>
+              {fi[ran] !== undefined ? (
+                  <Text style={{ fontSize: 30 }} numberOfLines={1}>
+                    {fi[ran].title}
+                  </Text>
+                ) : undefined}
               </View>
 
               <View
@@ -139,17 +141,18 @@ export default function Result({ navigation, route }) {
                   flex: 1,
                 }}
               >
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => {LIKE()}}>
                   <AntDesign name="hearto" size={25} color="red" />
                 </TouchableOpacity>
               </View>
             </View>
 
             <View style={{ marginHorizontal: 10, flex: 2 }}>
-              <Text style={{ color: "black" }} numberOfLines={3}>
-                This space is explanation.{`\n`}
-                {prevdata}
-              </Text>
+            {fi[ran] !== undefined ? (
+                <Text style={{ color: "black" }} numberOfLines={3}>
+                  {fi[ran].explain}
+                </Text>
+              ) : undefined}
             </View>
           </View>
 
