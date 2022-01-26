@@ -18,7 +18,7 @@ import { AntDesign } from "@expo/vector-icons";
 import DropShadow from "react-native-drop-shadow";
 import { firebase_db } from "../firebaseConfig";
 import * as Application from "expo-application";
-//test
+//test 2
 export default function Result({ navigation, route }) {
   LogBox.ignoreAllLogs();
 
