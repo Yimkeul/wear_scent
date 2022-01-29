@@ -11,11 +11,12 @@ import {
   Alert,
   Image,
   Modal,
-  Platform
+  Platform,
+  TouchableWithoutFeedback,
 } from "react-native";
 import DropShadow from "react-native-drop-shadow";
-import {firebase_db} from '../firebaseConfig'
-import * as Application from 'expo-application'
+import { firebase_db } from "../firebaseConfig";
+import * as Application from "expo-application";
 
 export default function Research({ navigation, route }) {
   const [isClick_sex_man, setCSM] = useState();
@@ -46,11 +47,10 @@ export default function Research({ navigation, route }) {
     }
   }, [isAge, isSex]);
 
-
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       setIsStyle(route.params.isStyle);
-   
+
       setIsAge(999);
       setIsSex("null");
       setCSM(false);
@@ -64,8 +64,7 @@ export default function Research({ navigation, route }) {
     return unsubscribe;
   }, [navigation]);
 
-
-  const [alldata, setAlldata] = useState({}) //firebase에서 데이터 받아옴
+  const [alldata, setAlldata] = useState({}); //firebase에서 데이터 받아옴
 
   useEffect(() => {
     setIsStyle(route.params.isStyle);
@@ -78,13 +77,7 @@ export default function Research({ navigation, route }) {
     setA20(false);
     setA30(false);
     setA40(false);
-
   }, []);
-
-
-
-
-  
 
   LogBox.ignoreAllLogs();
 
@@ -140,298 +133,398 @@ export default function Research({ navigation, route }) {
         </View>
       </View>
 
+      {Platform.OS == "ios" ? (
+        <DropShadow style={styles.shadowProp}>
+          <View id="Part_Age">
+            <View style={styles.Select_Age}>
+              <View
+                id="top"
+                style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+              >
+                {isclick_age_10 ? (
+                  <TouchableOpacity
+                    style={styles.Age_Box_af}
+                    onPress={() => {
+                      setIsAge(10);
+                      setA10(true);
+                      setA20(false);
+                      setA30(false);
+                      setA40(false);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 18,
+                        fontWeight: "700",
+                      }}
+                    >
+                      10대
+                    </Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.Age_Box}
+                    onPress={() => {
+                      setIsAge(10);
+                      setA10(true);
+                      setA20(false);
+                      setA30(false);
+                      setA40(false);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "black",
+                        fontSize: 18,
+                        fontWeight: "700",
+                      }}
+                    >
+                      10대
+                    </Text>
+                  </TouchableOpacity>
+                )}
 
-{Platform.OS == "ios" ? (      <DropShadow style={styles.shadowProp}>
-      <View id="Part_Age">
-        <View style={styles.Select_Age}>
-          <View
-            id="top"
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-          >
-            {isclick_age_10 ? (
-              <TouchableOpacity
-                style={styles.Age_Box_af}
-                onPress={() => {
-                  setIsAge(10);
-                  setA10(true);
-                  setA20(false);
-                  setA30(false);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "white",   fontSize: 18,
-    fontWeight: "700", }}>10대</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.Age_Box}
-                onPress={() => {
-                  setIsAge(10);
-                  setA10(true);
-                  setA20(false);
-                  setA30(false);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "black"  , fontSize: 18,
-    fontWeight: "700", }}>10대</Text>
-              </TouchableOpacity>
-            )}
+                {isclick_age_20 ? (
+                  <TouchableOpacity
+                    style={styles.Age_Box_af}
+                    onPress={() => {
+                      setIsAge(20);
+                      setA10(false);
+                      setA20(true);
+                      setA30(false);
+                      setA40(false);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 18,
+                        fontWeight: "700",
+                      }}
+                    >
+                      20대
+                    </Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.Age_Box}
+                    onPress={() => {
+                      setIsAge(20);
+                      setA10(false);
+                      setA20(true);
+                      setA30(false);
+                      setA40(false);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "black",
+                        fontSize: 18,
+                        fontWeight: "700",
+                      }}
+                    >
+                      20대
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
 
-            {isclick_age_20 ? (
-              <TouchableOpacity
-                style={styles.Age_Box_af}
-                onPress={() => {
-                  setIsAge(20);
-                  setA10(false);
-                  setA20(true);
-                  setA30(false);
-                  setA40(false);
-                }}
+              <View
+                id="bottom"
+                style={{ flexDirection: "row", justifyContent: "space-evenly" }}
               >
-                <Text style={{ color: "white", fontSize: 18,
-    fontWeight: "700" }}>20대</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.Age_Box}
-                onPress={() => {
-                  setIsAge(20);
-                  setA10(false);
-                  setA20(true);
-                  setA30(false);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "black" , fontSize: 18,
-    fontWeight: "700"}}>20대</Text>
-              </TouchableOpacity>
-            )}
+                {isclick_age_30 ? (
+                  <TouchableOpacity
+                    style={styles.Age_Box_af}
+                    onPress={() => {
+                      setIsAge(30);
+                      setA10(false);
+                      setA20(false);
+                      setA30(true);
+                      setA40(false);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 18,
+                        fontWeight: "700",
+                      }}
+                    >
+                      30대
+                    </Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.Age_Box}
+                    onPress={() => {
+                      setIsAge(30);
+                      setA10(false);
+                      setA20(false);
+                      setA30(true);
+                      setA40(false);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "black",
+                        fontSize: 18,
+                        fontWeight: "700",
+                      }}
+                    >
+                      30대
+                    </Text>
+                  </TouchableOpacity>
+                )}
+
+                {isclick_age_40 ? (
+                  <TouchableOpacity
+                    style={styles.Age_Box_af}
+                    onPress={() => {
+                      setIsAge(40);
+                      setA10(false);
+                      setA20(false);
+                      setA30(false);
+                      setA40(true);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 18,
+                        fontWeight: "700",
+                      }}
+                    >
+                      40대 이상
+                    </Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.Age_Box}
+                    onPress={() => {
+                      setIsAge(40);
+                      setA10(false);
+                      setA20(false);
+                      setA30(false);
+                      setA40(true);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "black",
+                        fontSize: 18,
+                        fontWeight: "700",
+                      }}
+                    >
+                      40대 이상
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </View>
           </View>
+        </DropShadow>
+      ) : (
+        <View id="Part_Age">
+          <View style={styles.Select_Age}>
+            <View
+              id="top"
+              style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+            >
+              {isclick_age_10 ? (
+                <TouchableOpacity
+                  style={{
+                    ...styles.Age_Box_af,
+                    elevation: 10,
+                    shadowColor: "#141414",
+                  }}
+                  onPress={() => {
+                    setIsAge(10);
+                    setA10(true);
+                    setA20(false);
+                    setA30(false);
+                    setA40(false);
+                  }}
+                >
+                  <Text
+                    style={{ color: "white", fontSize: 18, fontWeight: "700" }}
+                  >
+                    10대
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    ...styles.Age_Box,
+                    elevation: 10,
+                    shadowColor: "#141414",
+                  }}
+                  onPress={() => {
+                    setIsAge(10);
+                    setA10(true);
+                    setA20(false);
+                    setA30(false);
+                    setA40(false);
+                  }}
+                >
+                  <Text
+                    style={{ color: "black", fontSize: 18, fontWeight: "700" }}
+                  >
+                    10대
+                  </Text>
+                </TouchableOpacity>
+              )}
 
-          <View
-            id="bottom"
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-          >
-            {isclick_age_30 ? (
-              <TouchableOpacity
-                style={styles.Age_Box_af}
-                onPress={() => {
-                  setIsAge(30);
-                  setA10(false);
-                  setA20(false);
-                  setA30(true);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "white", fontSize: 18,
-    fontWeight: "700" }}>30대</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.Age_Box}
-                onPress={() => {
-                  setIsAge(30);
-                  setA10(false);
-                  setA20(false);
-                  setA30(true);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "black", fontSize: 18,
-    fontWeight: "700" }}>30대</Text>
-              </TouchableOpacity>
-            )}
+              {isclick_age_20 ? (
+                <TouchableOpacity
+                  style={{
+                    ...styles.Age_Box_af,
+                    elevation: 10,
+                    shadowColor: "#141414",
+                  }}
+                  onPress={() => {
+                    setIsAge(20);
+                    setA10(false);
+                    setA20(true);
+                    setA30(false);
+                    setA40(false);
+                  }}
+                >
+                  <Text
+                    style={{ color: "white", fontSize: 18, fontWeight: "700" }}
+                  >
+                    20대
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    ...styles.Age_Box,
+                    elevation: 10,
+                    shadowColor: "#141414",
+                  }}
+                  onPress={() => {
+                    setIsAge(20);
+                    setA10(false);
+                    setA20(true);
+                    setA30(false);
+                    setA40(false);
+                  }}
+                >
+                  <Text
+                    style={{ color: "black", fontSize: 18, fontWeight: "700" }}
+                  >
+                    20대
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
 
-            {isclick_age_40 ? (
-              <TouchableOpacity
-                style={styles.Age_Box_af}
-                onPress={() => {
-                  setIsAge(40);
-                  setA10(false);
-                  setA20(false);
-                  setA30(false);
-                  setA40(true);
-                }}
-              >
-                <Text style={{ color: "white", fontSize: 18,
-    fontWeight: "700" }}>40대 이상</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.Age_Box}
-                onPress={() => {
-                  setIsAge(40);
-                  setA10(false);
-                  setA20(false);
-                  setA30(false);
-                  setA40(true);
-                }}
-              >
-                <Text style={{ color: "black" , fontSize: 18,
-    fontWeight: "700"}}>40대 이상</Text>
-              </TouchableOpacity>
-            )}
+            <View
+              id="bottom"
+              style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+            >
+              {isclick_age_30 ? (
+                <TouchableOpacity
+                  style={{
+                    ...styles.Age_Box_af,
+                    elevation: 10,
+                    shadowColor: "#141414",
+                  }}
+                  onPress={() => {
+                    setIsAge(30);
+                    setA10(false);
+                    setA20(false);
+                    setA30(true);
+                    setA40(false);
+                  }}
+                >
+                  <Text
+                    style={{ color: "white", fontSize: 18, fontWeight: "700" }}
+                  >
+                    30대
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    ...styles.Age_Box,
+                    elevation: 10,
+                    shadowColor: "#141414",
+                  }}
+                  onPress={() => {
+                    setIsAge(30);
+                    setA10(false);
+                    setA20(false);
+                    setA30(true);
+                    setA40(false);
+                  }}
+                >
+                  <Text
+                    style={{ color: "black", fontSize: 18, fontWeight: "700" }}
+                  >
+                    30대
+                  </Text>
+                </TouchableOpacity>
+              )}
+
+              {isclick_age_40 ? (
+                <TouchableOpacity
+                  style={{
+                    ...styles.Age_Box_af,
+                    elevation: 10,
+                    shadowColor: "#141414",
+                  }}
+                  onPress={() => {
+                    setIsAge(40);
+                    setA10(false);
+                    setA20(false);
+                    setA30(false);
+                    setA40(true);
+                  }}
+                >
+                  <Text
+                    style={{ color: "white", fontSize: 18, fontWeight: "700" }}
+                  >
+                    40대 이상
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    ...styles.Age_Box,
+                    elevation: 10,
+                    shadowColor: "#141414",
+                  }}
+                  onPress={() => {
+                    setIsAge(40);
+                    setA10(false);
+                    setA20(false);
+                    setA30(false);
+                    setA40(true);
+                  }}
+                >
+                  <Text
+                    style={{ color: "black", fontSize: 18, fontWeight: "700" }}
+                  >
+                    40대 이상
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
         </View>
-      </View>
-      </DropShadow>):(  
-      <View id="Part_Age">
-        <View style={styles.Select_Age}>
-          <View
-            id="top"
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-          >
-            {isclick_age_10 ? (
-              <TouchableOpacity
-                style={{...styles.Age_Box_af,             elevation: 10,
-                  shadowColor: "#141414",}}
-                onPress={() => {
-                  setIsAge(10);
-                  setA10(true);
-                  setA20(false);
-                  setA30(false);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "white",   fontSize: 18,
-    fontWeight: "700", }}>10대</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-              style={{...styles.Age_Box,             elevation: 10,
-                shadowColor: "#141414",}}
-                onPress={() => {
-                  setIsAge(10);
-                  setA10(true);
-                  setA20(false);
-                  setA30(false);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "black"  , fontSize: 18,
-    fontWeight: "700", }}>10대</Text>
-              </TouchableOpacity>
-            )}
-
-            {isclick_age_20 ? (
-              <TouchableOpacity
-              style={{...styles.Age_Box_af,             elevation: 10,
-                shadowColor: "#141414",}}
-                onPress={() => {
-                  setIsAge(20);
-                  setA10(false);
-                  setA20(true);
-                  setA30(false);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "white", fontSize: 18,
-    fontWeight: "700" }}>20대</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-              style={{...styles.Age_Box,             elevation: 10,
-                shadowColor: "#141414",}}
-                onPress={() => {
-                  setIsAge(20);
-                  setA10(false);
-                  setA20(true);
-                  setA30(false);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "black" , fontSize: 18,
-    fontWeight: "700"}}>20대</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-
-          <View
-            id="bottom"
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-          >
-            {isclick_age_30 ? (
-              <TouchableOpacity
-              style={{...styles.Age_Box_af,             elevation: 10,
-                shadowColor: "#141414",}}
-                onPress={() => {
-                  setIsAge(30);
-                  setA10(false);
-                  setA20(false);
-                  setA30(true);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "white", fontSize: 18,
-    fontWeight: "700" }}>30대</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-              style={{...styles.Age_Box,             elevation: 10,
-                shadowColor: "#141414",}}
-                onPress={() => {
-                  setIsAge(30);
-                  setA10(false);
-                  setA20(false);
-                  setA30(true);
-                  setA40(false);
-                }}
-              >
-                <Text style={{ color: "black", fontSize: 18,
-    fontWeight: "700" }}>30대</Text>
-              </TouchableOpacity>
-            )}
-
-            {isclick_age_40 ? (
-              <TouchableOpacity
-              style={{...styles.Age_Box_af,             elevation: 10,
-                shadowColor: "#141414",}}
-                onPress={() => {
-                  setIsAge(40);
-                  setA10(false);
-                  setA20(false);
-                  setA30(false);
-                  setA40(true);
-                }}
-              >
-                <Text style={{ color: "white", fontSize: 18,
-    fontWeight: "700" }}>40대 이상</Text>
-              </TouchableOpacity>
-            ) : (
-         
-
-             
-              <TouchableOpacity
-              style={{...styles.Age_Box,   elevation: 10,
-                shadowColor: "#141414"        }}
-                onPress={() => {
-                  setIsAge(40);
-                  setA10(false);
-                  setA20(false);
-                  setA30(false);
-                  setA40(true);
-                }}
-              >
-                <Text style={{ color: "black" , fontSize: 18,
-    fontWeight: "700"}}>40대 이상</Text>
-              </TouchableOpacity>
-        
-            )}
-          </View>
-        </View>
-      </View>
       )}
 
-
-      <Modal
+      {/* <Modal
         visible={ismodalshow}
         animationType={"slide"}
         transparent={true}
         onRequestClose={back}
       >
         <View
-          style={{ flex: 1, justifyContent: "flex-end", paddingBottom: "5%" }}
+          style={{ marginTop : Dimensions.get('window').height*0.80, paddingBottom: "5%",backgroundColor:'gray' }}
         >
           <View style={{ alignItems: "flex-end" }}>
             <TouchableOpacity
@@ -449,7 +542,7 @@ export default function Research({ navigation, route }) {
           </View>
 
           <TouchableOpacity
-            style={styles.show_result_container}
+
             onPress={() => {
               setIsmodalshow(false);
            
@@ -465,10 +558,50 @@ export default function Research({ navigation, route }) {
 
             }}
           >
+
+
+            <View style={styles.show_result_container}> 
+
             <Text style={{ fontSize: 18, fontWeight: "700" }}>결과보기</Text>
+            </View>
+       
             
           </TouchableOpacity>
         </View>
+      </Modal> */}
+
+      <Modal
+        visible={ismodalshow}
+        animationType={"slide"}
+        transparent={true}
+        onRequestClose={back}
+      >
+        <TouchableOpacity 
+        
+        onPress={()=>{
+          setIsmodalshow(!ismodalshow);
+        }}
+        style={{ height : Dimensions.get("window").height * 0.85}}>
+
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setIsmodalshow(!ismodalshow);
+            setTimeout(() => {
+              navigation.navigate("Result", {
+                isSex: isSex,
+                isAge: isAge,
+                isStyle: isStyle,
+              });
+            }, 1);
+          }}
+        >
+  
+            <View style={styles.show_result_container}>
+              <Text style={{ fontSize: 18, fontWeight: "700" }}>결과보기</Text>
+            </View>
+   
+        </TouchableOpacity>
       </Modal>
     </SafeAreaView>
   );
@@ -481,7 +614,7 @@ const styles = StyleSheet.create({
   },
 
   Title_Sex: {
-    paddingTop: "5%", 
+    paddingTop: "5%",
     alignItems: "center",
   },
   title_text: {
@@ -514,8 +647,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width * 0.3,
     height: Dimensions.get("window").width * 0.3,
     borderWidth: 3,
-    backgroundColor:'white',
-
+    backgroundColor: "white",
   },
 
   Age_Box_af: {
@@ -525,7 +657,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width * 0.3,
     height: Dimensions.get("window").width * 0.3,
     backgroundColor: "#020715",
-     
   },
 
   show_result_container: {
@@ -537,8 +668,6 @@ const styles = StyleSheet.create({
     paddingVertical: "5%",
     marginHorizontal: "2%",
   },
-
-
 
   shadowProp: {
     shadowColor: "#171717",
