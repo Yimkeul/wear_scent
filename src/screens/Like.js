@@ -24,6 +24,7 @@ export default function Like({ navigation }) {
 
   useEffect(() => {
     getLike();
+    
   }, []);
 
   const getLike = async () => {

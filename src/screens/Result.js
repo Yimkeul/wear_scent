@@ -90,9 +90,10 @@ export default function Result({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar hidden />
+     <StatusBar barStyle="default"/>
       {Platform.OS == "ios" ? (
         <DropShadow style={styles.shadowProp}>
+       
           <View style={styles.img_box}>
             <ImageBackground
               source={require("../../assets/intro.png")}

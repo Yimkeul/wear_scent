@@ -97,7 +97,7 @@ export default function Home({ navigation, route }) {
 
       {/* 모달창 */}
       <Modal animationType={"slide"} transparent={false} visible={showmodal} onRequestClose={close}>
-        <View style={{ }}>
+        <SafeAreaView style={{flex : 1 }}>
           <Text>modal</Text>
           <Button
             title="닫기"
@@ -112,7 +112,7 @@ export default function Home({ navigation, route }) {
             source={require("../../assets/Logo.png")}
             style={{ height: "10%", resizeMode: "contain" }}
           />
-        </View>
+        </SafeAreaView>
       </Modal>
 
       {/* 웹뷰 & 결과 OS 분리 --> 그림자*/}
