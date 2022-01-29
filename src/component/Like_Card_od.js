@@ -13,7 +13,8 @@ import {
 import { firebase_db } from "../firebaseConfig";
 import * as Application from "expo-application";
 
-export default function Like_Card({ content, navigation, isdata, setIsData }) {
+export default function Like_Card_od({content, navigation, isdata, setIsData}) {
+
   const remove = async (cidx) => {
     let userUniqueId;
     if (Platform.OS == "ios") {
@@ -36,6 +37,11 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
       });
   };
 
+
+
+
+
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -52,10 +58,10 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
       
       <Image source={require('../../assets/ex_perfume.png')} style={styles.img}/>
 
-      <View style={{flex :1 , flexDirection :'row' ,backgroundColor:'pink'}}>
+      <View style={{flex :1 , flexDirection :'row',backgroundColor:'pink' }}>
 
 
-        <View style={{flex : 8, justifyContent:'center'}}> 
+      <View style={{flex : 8, justifyContent:'center' }}> 
           <Text style={styles.text}  numberOfLines={1}>{content.title}</Text>
         </View>
 
@@ -99,18 +105,17 @@ const styles = StyleSheet.create({
     flex : 1,
     marginBottom:20,
     borderWidth :1
+
   },
   card:{
     width:'100%',
     height:Dimensions.get('window').height*0.25,
+  
 
-    // borderTopLeftRadius : 15,
-    // borderTopRightRadius : 15,
   },
   img:{
     width:'100%',
     height:'80%',
-    
     resizeMode : 'contain'
     
   },
@@ -118,6 +123,7 @@ const styles = StyleSheet.create({
     fontSize :15,
     fontWeight : 'bold',
     marginLeft:5
+    
 
   }
 

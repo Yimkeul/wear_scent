@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,64 +10,63 @@ import {
   Platform,
   LogBox,
   ScrollView,
-  StatusBar
+  StatusBar,
 } from "react-native";
-import Like_Card from '../component/Like_Card';
+import Like_Card from "../component/Like_Card";
+import Like_Card_od from "../component/Like_Card_od";
 import { firebase_db } from "../firebaseConfig";
 import * as Application from "expo-application";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from "react-native-safe-area-context";
 
-
-export default function Like({navigation}){
+export default function Like({ navigation }) {
   LogBox.ignoreAllLogs();
-  const [isdata, setIsData ] = useState([])
-  
-  useEffect(()=>{
+  const [isdata, setIsData] = useState([]);
+
+  useEffect(() => {
     getLike();
-  },[])
+  }, []);
 
-
-  const getLike = async() =>{
+  const getLike = async () => {
     let userUniqueId;
-    if(Platform.OS == "ios"){
+    if (Platform.OS == "ios") {
       let iosId = await Application.getIosIdForVendorAsync();
       userUniqueId = iosId;
-    }else {
+    } else {
       userUniqueId = await Application.androidId;
     }
-    
+
     firebase_db
       .ref("/like/" + userUniqueId)
       .once("value")
       .then((snapshot) => {
         let likedata = snapshot.val();
-        let like_list = Object.values(likedata)
-        if(like_list && like_list.length > 0){
-          setIsData(like_list)  
+        let like_list = Object.values(likedata);
+        if (like_list && like_list.length > 0) {
+          setIsData(like_list);
         }
       });
+  };
 
-
-  }
-
-
-  return(
-    <SafeAreaView>
-      <StatusBar barStyle="default"/>
- {/*헤더*/}
- <View id="header" style={styles.header}>
+  return (
+    <SafeAreaView style={{flex : 1}}>
+      <StatusBar barStyle="default" />
+      {/*헤더*/}
+      <View id="header" style={styles.header}>
         <View id="Logo" style={styles.LogoBox}>
-          <Image source={require("../../assets/logo_letter.png")} style={styles.Logo} />
+          <Image
+            source={require("../../assets/logo_letter.png")}
+            style={styles.Logo}
+          />
         </View>
 
+        <View id="FAQ" style={styles.FAQBox}></View>
 
-          <View id="FAQ"  style={styles.FAQBox}>
-  
-          </View>
-  
-
-
-          <TouchableOpacity onPress={() => {navigation.goBack()}} style={styles.heartBox}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          style={styles.heartBox}
+        >
           <View id="heart">
             <Image
               source={require("../../assets/heart_c.png")}
@@ -75,58 +74,62 @@ export default function Like({navigation}){
             />
           </View>
         </TouchableOpacity>
-    
-    <TouchableOpacity style={styles.resetBox} onPress={()=>{navigation.navigate('Home')}}>
-    <View id="Home"  >
-    <Image
+
+        <TouchableOpacity
+          style={styles.resetBox}
+          onPress={() => {
+            navigation.navigate("Home");
+          }}
+        >
+          <View id="Home">
+            <Image
               source={require("../../assets/house.png")}
               style={styles.heart}
             />
-</View>
-    </TouchableOpacity>
-      
-       
-
-        
-
+          </View>
+        </TouchableOpacity>
       </View>
-       {/* 헤더 끝 */}
+      {/* 헤더 끝 */}
 
-
-
-
-
-
-
-
-
-
-
-       <ScrollView>
-       {isdata.map((content, i)=>{
-        return(
-          <Like_Card
-            key={i}
-            content = {content}
-            navigation = {navigation}
-            isdata={isdata}
-            setIsData={setIsData}
-          
-          
-          />
-        )
-      })}
-       </ScrollView>
-
-
-    
+      <ScrollView style={{}}>
+        <View style={{ flexDirection: "row",justifyContent:'space-evenly' }}>
+          <View style={{ width: Dimensions.get("window").width * 0.45  }}>
+            {isdata.map((content, i) => {
+              if (i % 2 == 0) {
+                return (
+                  <Like_Card
+                    key={i}
+                    content={content}
+                    navigation={navigation}
+                    isdata={isdata}
+                    setIsData={setIsData}
+                  />
+                );
+              }
+            })}
+          </View>
+          <View style={{ width: Dimensions.get("window").width * 0.45 }}>
+            {isdata.map((content, i) => {
+              if (i % 2 != 0) {
+                return (
+                  <Like_Card_od
+                    key={i}
+                    content={content}
+                    navigation={navigation}
+                    isdata={isdata}
+                    setIsData={setIsData}
+                  />
+                );
+              }
+            })}
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
-  )
+  );
 }
 
-
 const styles = StyleSheet.create({
-
   // 헤드 스타일
   header: {
     height: Dimensions.get("window").height * 0.1,
@@ -144,13 +147,10 @@ const styles = StyleSheet.create({
   },
   heartBox: {
     flex: 1,
-   
-
   },
   resetBox: {
     flex: 1,
     marginRight: 10,
-
   },
 
   Logo: {
@@ -178,4 +178,4 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   //
-})
+});
