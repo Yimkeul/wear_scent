@@ -102,7 +102,7 @@ export default function Like_Card_od({content, navigation, isdata, setIsData}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex : 1,
+
     marginBottom:20,
     borderWidth :1
 
