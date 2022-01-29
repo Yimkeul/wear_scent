@@ -66,20 +66,6 @@ export default function Result({ navigation, route }) {
       });
   }, []);
 
-  // useEffect(()=>{
-  //   if(rr == true){
-  //     setFi(
-  //       alldata.filter((d)=>{
-  //         return((d.sex == prevdata[0] && d.age == prevdata[1]))
-  //       })
-  //     )
-  //   let min =0
-  //   let max = Object.keys(fi).length
-  //   let rn = Math.floor(Math.random()*(max-min)) + min
-  //   setRan(rn)
-  //   }
-
-  // },[rr])
 
   //좋아요 함수
   const LIKE = async () => {
@@ -145,6 +131,8 @@ export default function Result({ navigation, route }) {
                   <AntDesign name="hearto" size={25} color="red" />
                 </TouchableOpacity>
               </View>
+
+
             </View>
 
             <View style={{ marginHorizontal: 10, flex: 2 }}>
@@ -200,6 +188,7 @@ export default function Result({ navigation, route }) {
                   justifyContent: "center",
                   alignItems: "center",
                   flex: 1,
+    
                 }}
               >
                 <TouchableOpacity
@@ -210,6 +199,7 @@ export default function Result({ navigation, route }) {
                   <AntDesign name="hearto" size={25} color="red" />
                 </TouchableOpacity>
               </View>
+
             </View>
 
             <View style={{ marginHorizontal: 10, flex: 2 }}>

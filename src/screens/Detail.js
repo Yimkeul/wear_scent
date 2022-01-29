@@ -18,6 +18,7 @@ import { AntDesign } from "@expo/vector-icons";
 import DropShadow from "react-native-drop-shadow";
 import { firebase_db } from "../firebaseConfig";
 import * as Application from "expo-application";
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function Detail({ navigation, route }) {
   LogBox.ignoreAllLogs();
@@ -62,31 +63,22 @@ export default function Detail({ navigation, route }) {
                 flexDirection: "row",
               }}
             >
-              <View style={{ flex: 9, justifyContent: "center" }}>
-                <Text style={{ fontSize: 30 }} numberOfLines={1}>
-                  Title
-                </Text>
+              <View style={{ flex: 1, justifyContent: "center" }}>
+              {prevdata !== undefined ? (
+                  <Text style={{ fontSize: 30 }} numberOfLines={1}>
+                    {prevdata.title}
+                  </Text>
+                ) : undefined}
               </View>
 
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flex: 1,
-                }}
-              >
-                <TouchableOpacity onPress={() => {}}>
-                  <AntDesign name="hearto" size={25} color="red" />
-                </TouchableOpacity>
-              </View>
             </View>
 
             <View style={{ marginHorizontal: 10, flex: 2 }}>
-              <Text style={{ color: "black" }} numberOfLines={3}>
-                This space is explanation.{`\n`}
-                {prevdata}
-              </Text>
+            {prevdata !== undefined ? (
+                <Text style={{ color: "black" }} numberOfLines={3}>
+                  {prevdata.explain}
+                </Text>
+              ) : undefined}
             </View>
           </View>
 
@@ -128,22 +120,6 @@ export default function Detail({ navigation, route }) {
                 ) : undefined}
               </View>
 
-              {/* <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flex: 1,
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() => {
-                    LIKE();
-                  }}
-                >
-                  <AntDesign name="hearto" size={25} color="red" />
-                </TouchableOpacity>
-              </View> */}
             </View>
 
             <View style={{ marginHorizontal: 10, flex: 2 }}>
