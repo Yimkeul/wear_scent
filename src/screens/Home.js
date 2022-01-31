@@ -18,26 +18,13 @@ import {
 import { WebView } from "react-native-webview";
 import DropShadow from "react-native-drop-shadow";
 import { MaterialIcons } from "@expo/vector-icons";
-// import { SliderBox } from "react-native-image-slider-box";
+
 
 export default function Home({ navigation, route }) {
   LogBox.ignoreAllLogs();
   const _url = "https://stoic-perlman-d070d2.netlify.app"; //작업중인 사이트
   const webViewRef = useRef(); //필요
   const [getstyle, setGetstyle] = useState("undefined");
-  const [currentIndex, setCurrentIndex] = useState(1)
-  const [images, setimages] = useState({
-   images :  [
-      require('../../assets/ex_perfume.png'),
-      require('../../assets/logo_letter.png'),
-      require('../../assets/logo_nopainting.png'),
-
-    ]
-  } 
-  )
-
-
-
 
   onMessage = (data) => {
 
@@ -51,10 +38,6 @@ export default function Home({ navigation, route }) {
     }
   };
 
-  const [showmodal, setShowmodal] = useState(false);
-  const close=()=>{
-    setShowmodal(false)
-  }
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       webViewRef.current.goBack();
@@ -74,7 +57,7 @@ export default function Home({ navigation, route }) {
         </View>
 
 
-          <View id="space"    style={styles.FAQBox}>
+          <View id="space"  style={styles.FAQBox}>
           </View>
     
 
@@ -176,7 +159,7 @@ export default function Home({ navigation, route }) {
               shadowColor: "#141414",
             }}
           >
-            {getstyle == "undefined" ? ( //임시로
+            {getstyle == "undefined" ? (
               <Text style={styles.Show_Style_Result_Text}>
                 Your Style is...
               </Text>
