@@ -73,19 +73,10 @@ export default function Home({ navigation, route }) {
           <Image source={require("../../assets/logo_letter.png")} style={styles.Logo} />
         </View>
 
-        <TouchableOpacity
-          onPress={() => {
-            setShowmodal(true);
-          }}
-          style={styles.FAQBox}
-        >
-          <View id="FAQ">
-            <Image
-              source={require("../../assets/question_mark.png")}
-              style={styles.FAQ}
-            />
+
+          <View id="space"    style={styles.FAQBox}>
           </View>
-        </TouchableOpacity>
+    
 
         <TouchableOpacity onPress={() => {navigation.navigate("Like")}} style={styles.heartBox}>
           <View id="heart">
@@ -110,34 +101,8 @@ export default function Home({ navigation, route }) {
       </View>
        {/* 헤더 끝 */}
 
-      {/* 모달창 */}
-      <Modal animationType={"slide"} transparent={false} visible={showmodal} onRequestClose={close}>
-        <SafeAreaView style={{flex : 1 }}>
-          <Text>modal</Text>
-          <Button
-            title="닫기"
-            onPress={() => {
-              setShowmodal(false);
-            }}
-          />
-          <TouchableOpacity>
-            <Image source={require("../../assets/IC_24C.png")} />
-          </TouchableOpacity>
-          <Image
-            source={require("../../assets/Logo.png")}
-            style={{ height: "10%", resizeMode: "contain" }}
-          />
-           {/* <SliderBox
-        images={images.images}
-        resizeMode="cover"
-        autoplay={true}
-        circleLoop={true}
-        currentImageEmitter={(index)=>{
-          setCurrentIndex(index+1)
-        }}
-      /> */}
-        </SafeAreaView>
-      </Modal>
+
+    
 
       {/* 웹뷰 & 결과 OS 분리 --> 그림자*/}
        {Platform.OS == "ios" ? (
