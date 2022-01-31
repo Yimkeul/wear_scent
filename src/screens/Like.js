@@ -13,7 +13,6 @@ import {
   StatusBar,
 } from "react-native";
 import Like_Card from "../component/Like_Card";
-import Like_Card_od from "../component/Like_Card_od";
 import { firebase_db } from "../firebaseConfig";
 import * as Application from "expo-application";
 import { SafeAreaView } from "react-native-safe-area-context";
