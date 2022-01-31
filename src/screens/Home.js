@@ -18,7 +18,7 @@ import {
 import { WebView } from "react-native-webview";
 import DropShadow from "react-native-drop-shadow";
 import { MaterialIcons } from "@expo/vector-icons";
-import { SliderBox } from "react-native-image-slider-box";
+// import { SliderBox } from "react-native-image-slider-box";
 
 export default function Home({ navigation, route }) {
   LogBox.ignoreAllLogs();
@@ -127,7 +127,7 @@ export default function Home({ navigation, route }) {
             source={require("../../assets/Logo.png")}
             style={{ height: "10%", resizeMode: "contain" }}
           />
-           <SliderBox
+           {/* <SliderBox
         images={images.images}
         resizeMode="cover"
         autoplay={true}
@@ -135,7 +135,7 @@ export default function Home({ navigation, route }) {
         currentImageEmitter={(index)=>{
           setCurrentIndex(index+1)
         }}
-      />
+      /> */}
         </SafeAreaView>
       </Modal>
 
