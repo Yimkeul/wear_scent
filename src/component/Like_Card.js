@@ -47,20 +47,21 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
         navigation.navigate("Detail", { idx: content.idx });
       }}
     >
-      <View style={styles.card}>
+          <View style={styles.card}>
         <Image
           source={require("../../assets/ex_perfume.png")}
           style={styles.img}
         />
 
-        
-
         <View
-          style={{ flex: 1, flexDirection: "row" }}
+          style={{ flex: 1, flexDirection: "row" ,borderTopWidth : 0.5,}}
         >
-          <View style={{ flex: 8, justifyContent: "center" }}>
+          <View style={{ flex: 8, justifyContent: "flex-start" }}>
             <Text style={styles.text} numberOfLines={1}>
               {content.title}
+            </Text>
+            <Text style={styles.text2} numberOfLines={1}>
+              #{content.style}
             </Text>
           </View>
 
@@ -68,7 +69,7 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
             onPress={() => {
               remove(content.idx);
             }}
-            style={{ flex: 2, justifyContent: "center", alignItems: "center" }}
+            style={{ flex: 2, justifyContent: "flex-end", alignItems: "center" }}
           >
             <Image source={require("../../assets/trash.png")} />
           </TouchableOpacity>
