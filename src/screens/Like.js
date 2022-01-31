@@ -24,7 +24,6 @@ export default function Like({ navigation }) {
 
   useEffect(() => {
     getLike();
-    
   }, []);
 
   const getLike = async () => {
@@ -49,7 +48,7 @@ export default function Like({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={{flex : 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="default" />
       {/*헤더*/}
       <View id="header" style={styles.header}>
@@ -93,8 +92,8 @@ export default function Like({ navigation }) {
       {/* 헤더 끝 */}
 
       <ScrollView style={{}}>
-        <View style={{ flexDirection: "row",justifyContent:'space-evenly' }}>
-          <View style={{ width: Dimensions.get("window").width * 0.45  }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+          <View style={{ width: Dimensions.get("window").width * 0.45 }}>
             {isdata.map((content, i) => {
               if (i % 2 == 0) {
                 return (
@@ -113,7 +112,7 @@ export default function Like({ navigation }) {
             {isdata.map((content, i) => {
               if (i % 2 != 0) {
                 return (
-                  <Like_Card_od
+                  <Like_Card
                     key={i}
                     content={content}
                     navigation={navigation}
