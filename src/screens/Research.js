@@ -517,59 +517,6 @@ export default function Research({ navigation, route }) {
         </View>
       )}
 
-      {/* <Modal
-        visible={ismodalshow}
-        animationType={"slide"}
-        transparent={true}
-        onRequestClose={back}
-      >
-        <View
-          style={{ marginTop : Dimensions.get('window').height*0.80, paddingBottom: "5%",backgroundColor:'gray' }}
-        >
-          <View style={{ alignItems: "flex-end" }}>
-            <TouchableOpacity
-              onPress={() => {
-                setIsmodalshow(false);
-              }}
-              style={{
-                paddingHorizontal: "5%",
-                paddingBottom: "2%",
-                paddingTop: "5%",
-              }}
-            >
-              <Text style={{ fontSize: 15 }}>X</Text>
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity
-
-            onPress={() => {
-              setIsmodalshow(false);
-           
-              setTimeout(() => {
-                navigation.navigate("Result", {
-                  isSex: isSex,
-                  isAge: isAge,
-                  isStyle: isStyle,
-             
-                });
-              }, 1);
-  
-
-            }}
-          >
-
-
-            <View style={styles.show_result_container}> 
-
-            <Text style={{ fontSize: 18, fontWeight: "700" }}>결과보기</Text>
-            </View>
-       
-            
-          </TouchableOpacity>
-        </View>
-      </Modal> */}
-
       <Modal
         visible={ismodalshow}
         animationType={"slide"}

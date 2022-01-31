@@ -35,9 +35,8 @@ export default function Result({ navigation, route }) {
       age: "",
       style: "",
     },
-  ]); //테스트중 (filter)
+  ]); 
 
-  const [rr, setRR] = useState(false);
   const [ran, setRan] = useState();
 
   useEffect(() => {
@@ -53,7 +52,7 @@ export default function Result({ navigation, route }) {
         // console.log("파이어베이스에서 데이터 가져왔습니다!!");
         let dpp = snapshot.val();
         setAlldata(dpp);
-        // setRR(true)
+
         setFi(
           dpp.filter((d) => {
             return d.sex == isSex && d.age == isAge;

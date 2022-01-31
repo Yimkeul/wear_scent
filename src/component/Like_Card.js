@@ -53,8 +53,10 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
           style={styles.img}
         />
 
+        
+
         <View
-          style={{ flex: 1, flexDirection: "row", backgroundColor: "pink" }}
+          style={{ flex: 1, flexDirection: "row" }}
         >
           <View style={{ flex: 8, justifyContent: "center" }}>
             <Text style={styles.text} numberOfLines={1}>
@@ -94,11 +96,14 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
         />
 
         <View
-          style={{ flex: 1, flexDirection: "row", backgroundColor: "pink" }}
+          style={{ flex: 1, flexDirection: "row" ,borderTopWidth : 0.5,}}
         >
-          <View style={{ flex: 8, justifyContent: "center" }}>
+          <View style={{ flex: 8, justifyContent: "flex-start" }}>
             <Text style={styles.text} numberOfLines={1}>
               {content.title}
+            </Text>
+            <Text style={styles.text2} numberOfLines={1}>
+              #{content.style}
             </Text>
           </View>
 
@@ -106,7 +111,7 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
             onPress={() => {
               remove(content.idx);
             }}
-            style={{ flex: 2, justifyContent: "center", alignItems: "center" }}
+            style={{ flex: 2, justifyContent: "flex-end", alignItems: "center" }}
           >
             <Image source={require("../../assets/trash.png")} />
           </TouchableOpacity>
@@ -126,23 +131,33 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
-    borderWidth: 1,
-    backgroundColor:'white'
+    backgroundColor:'white',
+    padding : 10,
+    
+
   },
   card: {
     width: "100%",
-    height: Dimensions.get("window").height * 0.25,
+    height: Dimensions.get("window").height * 0.3,
+
   },
   img: {
     width: "100%",
-    height: "80%",
+    height: "75%",
 
     resizeMode: "contain",
   },
   text: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: "bold",
-    marginLeft: 5,
+    marginLeft: 10,
+  },
+  text2: {
+    paddingTop :5,
+    fontSize: 10,
+    fontWeight: "bold",
+    marginLeft: 10,
+    color: 'gray'
   },
 
   shadowProp: {

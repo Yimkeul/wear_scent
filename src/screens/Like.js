@@ -89,6 +89,9 @@ export default function Like({ navigation }) {
         </TouchableOpacity>
       </View>
       {/* 헤더 끝 */}
+          
+          
+          <View id = "space_" style={{padding : 10}}></View>
 
       <ScrollView style={{}}>
         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
