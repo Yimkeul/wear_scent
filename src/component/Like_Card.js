@@ -48,8 +48,8 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
       }}
     >
           <View style={styles.card}>
-        <Image
-          source={require("../../assets/ex_perfume.png")}
+          <Image
+         source={{uri : content.img_link}}
           style={styles.img}
         />
 
@@ -92,7 +92,7 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
     >
       <View style={styles.card}>
         <Image
-          source={require("../../assets/ex_perfume.png")}
+         source={{uri : content.img_link}}
           style={styles.img}
         />
 
@@ -115,6 +115,7 @@ export default function Like_Card({ content, navigation, isdata, setIsData }) {
             style={{ flex: 2, justifyContent: "flex-end", alignItems: "center" }}
           >
             <Image source={require("../../assets/trash.png")} />
+         
           </TouchableOpacity>
         </View>
       </View>

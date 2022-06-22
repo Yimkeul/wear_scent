@@ -5,7 +5,26 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "icon": "assets/IC_1024_C.png",
+    "splash": {
+      "image": "assets/SP.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f0f5f9"
+    },
+    "android": {
+      "package": "com.yimkeul.wear_scent"
+    },
+    "description": ""
   },
-  "name": "wear_scent"
+  "name": "wear_scent",
+  "ios": {
+    "supportsTablet": true,
+    "buildNumber": "1.0.0",
+    "bundleIdentifier": "com.yimkeul.wear_scent"
+  },
+  "android": {
+    "package": "com.yimkeul.wear_scent",
+    "versionCode": 1
+  }
 }

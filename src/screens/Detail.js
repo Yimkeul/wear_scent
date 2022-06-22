@@ -46,14 +46,18 @@ export default function Detail({ navigation, route }) {
       {Platform.OS == "ios" ? (
         <DropShadow style={styles.shadowProp}>
           <View style={styles.img_box}>
+          {prevdata !== undefined ? 
             <ImageBackground
-              source={require("../../assets/intro.png")}
-              style={{ resizeMode: "cover", flex: 1 }}
-              imageStyle={{
-                borderBottomRightRadius: 70,
-                borderBottomLeftRadius: 70,
-              }}
-            />
+            source={{uri : prevdata.img_link}}
+            style={{ resizeMode: "contain", flex: 1 }}
+            imageStyle={{
+              borderBottomRightRadius: 70,
+              borderBottomLeftRadius: 70,
+            }}
+          />
+          :<View></View>
+          
+          }
           </View>
           <View style={styles.Text_box}>
             <View
@@ -65,7 +69,7 @@ export default function Detail({ navigation, route }) {
             >
               <View style={{ flex: 1, justifyContent: "center" }}>
               {prevdata !== undefined ? (
-                  <Text style={{ fontSize: 30 }} numberOfLines={1}>
+                        <Text style={{ fontSize: 28 }} numberOfLines={2}>
                     {prevdata.title}
                   </Text>
                 ) : undefined}
@@ -89,14 +93,18 @@ export default function Detail({ navigation, route }) {
       ) : (
         <>
           <View style={styles.img_box}>
+          {prevdata !== undefined ? 
             <ImageBackground
-              source={require("../../assets/intro.png")}
-              style={{ resizeMode: "cover", flex: 1 }}
-              imageStyle={{
-                borderBottomRightRadius: 70,
-                borderBottomLeftRadius: 70,
-              }}
-            />
+            source={{uri : prevdata.img_link}}
+            style={{ resizeMode: "contain", flex: 1 }}
+            imageStyle={{
+              borderBottomRightRadius: 70,
+              borderBottomLeftRadius: 70,
+            }}
+          />
+          :<View></View>
+          
+          }
           </View>
           <View
             style={{
@@ -112,9 +120,9 @@ export default function Detail({ navigation, route }) {
                 flexDirection: "row",
               }}
             >
-              <View style={{ flex: 1, justifyContent: "center" }}>
+              <View style={{ flex: 2, justifyContent: "center" }}>
                 {prevdata !== undefined ? (
-                  <Text style={{ fontSize: 30 }} numberOfLines={1}>
+                  <Text style={{ fontSize: 28 }} numberOfLines={2}>
                     {prevdata.title}
                   </Text>
                 ) : undefined}
@@ -150,10 +158,11 @@ export default function Detail({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'white'
   },
   img_box: {
-    height: Dimensions.get("window").height * 0.58,
-    backgroundColor: "gray",
+    height: Dimensions.get("window").height * 0.55,
+    marginTop : '10%',    backgroundColor: "white",
     borderBottomRightRadius: 70,
     borderBottomLeftRadius: 70,
   },

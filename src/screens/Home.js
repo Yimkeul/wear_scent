@@ -22,7 +22,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Home({ navigation, route }) {
   LogBox.ignoreAllLogs();
-  const _url = "https://stoic-perlman-d070d2.netlify.app"; //작업중인 사이트
+  const _url = "https://stoic-perlman-d070d2.netlify.app/"; //작업중인 사이트
   const webViewRef = useRef(); //필요
   const [getstyle, setGetstyle] = useState("undefined");
 
@@ -33,6 +33,7 @@ export default function Home({ navigation, route }) {
       setGetstyle(data);
     
     } else {
+  
       setGetstyle(data);
 
     }
@@ -147,9 +148,11 @@ export default function Home({ navigation, route }) {
               bounces={false}
               scrollEnabled={false}
               onMessage={(event) => {
-                onMessage(event.nativeEvent.data);
+                onMessage(event.nativeEvent.data)
+                console.log(event.nativeEvent.data);
               }}
             />
+            
           </View> 
           {/* 스타일 결과창 */}
            <View
@@ -169,6 +172,7 @@ export default function Home({ navigation, route }) {
                 <View style={{flex: 1 ,  alignItems :'center' , justifyContent :'center' }}>
 
                 <Text style={styles.Show_Style_Result_Text}>{getstyle}</Text>
+            
                 </View>
 
                 <View style={{flex : 1, alignItems :'flex-end' , justifyContent :'center'}}>

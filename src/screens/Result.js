@@ -13,6 +13,8 @@ import {
   Modal,
   Button,
   Platform,
+  Image,
+  Linking
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import DropShadow from "react-native-drop-shadow";
@@ -26,6 +28,7 @@ export default function Result({ navigation, route }) {
 
   const [alldata, setAlldata] = useState({}); //firebase에서 데이터 받아옴
 
+
   const [fi, setFi] = useState([
     {
       idx: 999999,
@@ -34,11 +37,13 @@ export default function Result({ navigation, route }) {
       sex: "",
       age: "",
       style: "",
+      img_link : "",
+      link:""
     },
   ]); 
 
   const [ran, setRan] = useState();
-
+  const [rr,setRR ] = useState(false)
   useEffect(() => {
     const { isSex, isAge, isStyle } = route.params;
     setPrevdata([isSex, isAge, isStyle]);
@@ -49,21 +54,51 @@ export default function Result({ navigation, route }) {
       .ref("/perfume")
       .once("value")
       .then((snapshot) => {
-        // console.log("파이어베이스에서 데이터 가져왔습니다!!");
-        let dpp = snapshot.val();
-        setAlldata(dpp);
 
-        setFi(
-          dpp.filter((d) => {
-            return d.sex == isSex && d.age == isAge;
-          })
-        );
-        let min = 0;
-        let max = Object.keys(fi).length;
-        let rn = Math.floor(Math.random() * (max - min)) + min;
-        setRan(rn);
+        let dpp = snapshot.val();
+    
+        setAlldata(dpp)
+        setRR(true)
+        
+
+        // setFi(
+        //   dpp.filter((d) => {
+        //     return (d.sex == isSex && d.age == isAge && d.style == isStyle);
+        //   })
+        // );
+        // let min = 0;
+        // let max = Object.keys(fi).length;
+   
+        // let rn = Math.floor(Math.random() * (max - min)) + min;
+        // setRan(rn);
       });
   }, []);
+
+
+  const [ready, setReady] = useState(false)
+  useEffect(()=>{
+    setReady(false)
+    if(rr == true){
+      
+      setFi(
+        alldata.filter((d)=>{
+          // return (d.sex == prevdata[0]&&d.age ==prevdata[1]&&d.style==prevdata[2] ) //teachable machine의 정확성이 높아지면 분류 세분화 가능
+          //지금은 간단한게 결과값을 표출하기 위해 style항목을 제외했다.
+          return (d.sex == prevdata[0]&&d.age ==prevdata[1] )
+        }
+       )
+      )
+    let min =0
+    let max = Object.keys(fi).length
+        
+    let rn = Math.floor(Math.random()*(max-min)) + min
+
+    setRan(rn)
+    }
+
+  },[rr])
+
+
 
 
   //좋아요 함수
@@ -94,14 +129,18 @@ export default function Result({ navigation, route }) {
         <DropShadow style={styles.shadowProp}>
        
           <View style={styles.img_box}>
+          {fi[ran] !== undefined ? 
             <ImageBackground
-              source={require("../../assets/intro.png")}
-              style={{ resizeMode: "cover", flex: 1 }}
-              imageStyle={{
-                borderBottomRightRadius: 70,
-                borderBottomLeftRadius: 70,
-              }}
-            />
+            source={{uri : fi[ran].img_link}}
+            style={{ resizeMode: "contain", flex: 1 }}
+            imageStyle={{
+              borderBottomRightRadius: 70,
+              borderBottomLeftRadius: 70,
+            }}
+          />
+          :<View></View>
+          
+          }
           </View>
           <View style={styles.Text_box}>
             <View
@@ -109,11 +148,12 @@ export default function Result({ navigation, route }) {
                 marginHorizontal: 10,
                 flex: 1,
                 flexDirection: "row",
+                
               }}
             >
               <View style={{ flex: 9, justifyContent: "center" }}>
               {fi[ran] !== undefined ? (
-                  <Text style={{ fontSize: 30 }} numberOfLines={1}>
+                   <Text style={{ fontSize: 28 }} numberOfLines={2}>
                     {fi[ran].title}
                   </Text>
                 ) : undefined}
@@ -144,21 +184,25 @@ export default function Result({ navigation, route }) {
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => {}} style={styles.Button_box}>
+          <TouchableOpacity       onPress={() => {Linking.openURL(fi[ran].link)}} style={styles.Button_box}>
             <Text style={styles.Button_box_text}>바로가기</Text>
           </TouchableOpacity>
         </DropShadow>
       ) : (
         <>
           <View style={styles.img_box}>
+            {fi[ran] !== undefined ? 
             <ImageBackground
-              source={require("../../assets/intro.png")}
-              style={{ resizeMode: "cover", flex: 1 }}
-              imageStyle={{
-                borderBottomRightRadius: 70,
-                borderBottomLeftRadius: 70,
-              }}
-            />
+            source={{uri : fi[ran].img_link}}
+            style={{ resizeMode: "contain", flex: 1 }}
+            imageStyle={{
+              borderBottomRightRadius: 70,
+              borderBottomLeftRadius: 70,
+            }}
+          />
+          :<View></View>
+          
+          }
           </View>
           <View
             style={{
@@ -170,13 +214,14 @@ export default function Result({ navigation, route }) {
             <View
               style={{
                 marginHorizontal: 10,
-                flex: 1,
+                flex: 2,
                 flexDirection: "row",
+                
               }}
             >
               <View style={{ flex: 9, justifyContent: "center" }}>
                 {fi[ran] !== undefined ? (
-                  <Text style={{ fontSize: 30 }} numberOfLines={1}>
+                  <Text style={{ fontSize: 28 }} numberOfLines={2}>
                     {fi[ran].title}
                   </Text>
                 ) : undefined}
@@ -185,9 +230,10 @@ export default function Result({ navigation, route }) {
               <View
                 style={{
                   flexDirection: "row",
-                  justifyContent: "center",
+                  justifyContent: "flex-end",
                   alignItems: "center",
                   flex: 1,
+                  
     
                 }}
               >
@@ -210,9 +256,9 @@ export default function Result({ navigation, route }) {
               ) : undefined}
             </View>
           </View>
-
+          
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => {Linking.openURL(fi[ran].link)}}
             style={{
               ...styles.Button_box,
               elevation: 10,
@@ -230,12 +276,15 @@ export default function Result({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'white'
   },
   img_box: {
-    height: Dimensions.get("window").height * 0.58,
-    backgroundColor: "gray",
-    borderBottomRightRadius: 70,
-    borderBottomLeftRadius: 70,
+    height: Dimensions.get("window").height * 0.55,
+    marginTop : '10%',
+    backgroundColor: "white",
+    // borderBottomRightRadius: 70,
+    // borderBottomLeftRadius: 70,
+    
   },
   Text_box: {
     marginHorizontal: 10,
