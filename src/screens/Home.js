@@ -19,7 +19,6 @@ import { WebView } from "react-native-webview";
 import DropShadow from "react-native-drop-shadow";
 import { MaterialIcons } from "@expo/vector-icons";
 
-
 export default function Home({ navigation, route }) {
   LogBox.ignoreAllLogs();
   const _url = "https://stoic-perlman-d070d2.netlify.app/"; //작업중인 사이트
@@ -27,15 +26,10 @@ export default function Home({ navigation, route }) {
   const [getstyle, setGetstyle] = useState("undefined");
 
   onMessage = (data) => {
-
     if (data == getstyle) {
-  
       setGetstyle(data);
-    
     } else {
-  
       setGetstyle(data);
-
     }
   };
 
@@ -49,20 +43,25 @@ export default function Home({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.Main_Container}>
-      <StatusBar barStyle="default"/>
+      <StatusBar barStyle="default" />
 
       {/*헤더*/}
       <View id="header" style={styles.header}>
         <View id="Logo" style={styles.LogoBox}>
-          <Image source={require("../../assets/logo_letter.png")} style={styles.Logo} />
+          <Image
+            source={require("../../assets/logo_letter.png")}
+            style={styles.Logo}
+          />
         </View>
 
+        <View id="space" style={styles.FAQBox}></View>
 
-          <View id="space"  style={styles.FAQBox}>
-          </View>
-    
-
-        <TouchableOpacity onPress={() => {navigation.navigate("Like")}} style={styles.heartBox}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Like");
+          }}
+          style={styles.heartBox}
+        >
           <View id="heart">
             <Image
               source={require("../../assets/heart.png")}
@@ -71,10 +70,13 @@ export default function Home({ navigation, route }) {
           </View>
         </TouchableOpacity>
 
-
-        <TouchableOpacity onPress={() => {       
-          webViewRef.current.goBack();
-            setGetstyle("undefined");}} style={styles.resetBox}>
+        <TouchableOpacity
+          onPress={() => {
+            webViewRef.current.goBack();
+            setGetstyle("undefined");
+          }}
+          style={styles.resetBox}
+        >
           <View id="reset">
             <Image
               source={require("../../assets/reset.png")}
@@ -83,13 +85,10 @@ export default function Home({ navigation, route }) {
           </View>
         </TouchableOpacity>
       </View>
-       {/* 헤더 끝 */}
-
-
-    
+      {/* 헤더 끝 */}
 
       {/* 웹뷰 & 결과 OS 분리 --> 그림자*/}
-       {Platform.OS == "ios" ? (
+      {Platform.OS == "ios" ? (
         <DropShadow style={styles.shadowProp}>
           <View style={styles.WebView_Continer}>
             <WebView
@@ -102,39 +101,56 @@ export default function Home({ navigation, route }) {
                 onMessage(event.nativeEvent.data);
               }}
             />
-          </View> 
+          </View>
 
           {/* 스타일 결과창 */}
-           <View style={styles.Show_Style_Result_Container}>
-          {getstyle == "undefined" ? (
+          <View style={styles.Show_Style_Result_Container}>
+            {getstyle == "undefined" ? (
               <Text style={styles.Show_Style_Result_Text}>
-                 Your Style is...
+                Your Style is...
               </Text>
             ) : (
-              <View style = {{flexDirection:"row" }}>
-                <View style={{flex : 1 }}></View>
-                <View style={{flex: 1 ,  alignItems :'center' , justifyContent :'center' }}>
-
-                <Text style={styles.Show_Style_Result_Text}>{getstyle}</Text>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1 }}></View>
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={styles.Show_Style_Result_Text}>{getstyle}</Text>
                 </View>
 
-                <View style={{flex : 1, alignItems :'flex-end' , justifyContent :'center' }}>
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "flex-end",
+                    justifyContent: "center",
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{ flexDirection: "row" }}
+                    onPress={() => {
+                      navigation.navigate("Research", { isStyle: getstyle });
+                    }}
+                  >
+                    <Text>click</Text>
 
-                <TouchableOpacity style = {{flexDirection:"row" }} onPress={()=>{navigation.navigate("Research", { isStyle: getstyle })}}>
-                  <Text >click</Text>
-        
-                  <MaterialIcons name="navigate-next" size={24} color="black" />
-                </TouchableOpacity>
+                    <MaterialIcons
+                      name="navigate-next"
+                      size={24}
+                      color="black"
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
-
             )}
           </View>
-          
-        </DropShadow> 
-       ) : ( 
+        </DropShadow>
+      ) : (
         <>
-           <View
+          <View
             style={{
               ...styles.WebView_Continer,
               elevation: 6,
@@ -148,14 +164,13 @@ export default function Home({ navigation, route }) {
               bounces={false}
               scrollEnabled={false}
               onMessage={(event) => {
-                onMessage(event.nativeEvent.data)
+                onMessage(event.nativeEvent.data);
                 console.log(event.nativeEvent.data);
               }}
             />
-            
-          </View> 
+          </View>
           {/* 스타일 결과창 */}
-           <View
+          <View
             style={{
               ...styles.Show_Style_Result_Container,
               elevation: 6,
@@ -167,30 +182,45 @@ export default function Home({ navigation, route }) {
                 Your Style is...
               </Text>
             ) : (
-              <View style = {{flexDirection:"row" }}>
-                <View style={{flex : 1 }}></View>
-                <View style={{flex: 1 ,  alignItems :'center' , justifyContent :'center' }}>
-
-                <Text style={styles.Show_Style_Result_Text}>{getstyle}</Text>
-            
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1 }}></View>
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={styles.Show_Style_Result_Text}>{getstyle}</Text>
                 </View>
 
-                <View style={{flex : 1, alignItems :'flex-end' , justifyContent :'center'}}>
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "flex-end",
+                    justifyContent: "center",
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{ flexDirection: "row" }}
+                    onPress={() => {
+                      navigation.navigate("Research", { isStyle: getstyle });
+                    }}
+                  >
+                    <Text>click</Text>
 
-                <TouchableOpacity style = {{flexDirection:"row" }} onPress={()=>{navigation.navigate("Research", { isStyle: getstyle })}}>
-                  <Text >click</Text>
-        
-                  <MaterialIcons name="navigate-next" size={24} color="black" />
-                </TouchableOpacity>
+                    <MaterialIcons
+                      name="navigate-next"
+                      size={24}
+                      color="black"
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
-
             )}
-          </View> 
+          </View>
         </>
-       )} 
-
-
+      )}
     </SafeAreaView>
   );
 }
@@ -232,7 +262,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height * 0.1,
     justifyContent: "space-evenly",
     alignItems: "center",
-    backgroundColor:'aqua'
+    backgroundColor: "aqua",
   },
 
   Btn2: {
@@ -242,7 +272,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   Btn_Touch1: {
-    width : '45%',
+    width: "45%",
     flexDirection: "row",
     borderWidth: 2,
     borderColor: "#f21a1d",
@@ -252,7 +282,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     flexDirection: "row",
-
   },
 
   // 헤드 스타일
@@ -272,7 +301,6 @@ const styles = StyleSheet.create({
   },
   heartBox: {
     flex: 1,
-
   },
   resetBox: {
     flex: 1,
